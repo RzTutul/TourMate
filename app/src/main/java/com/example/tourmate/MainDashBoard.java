@@ -3,6 +3,7 @@ package com.example.tourmate;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -26,6 +27,8 @@ public class MainDashBoard extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_main_dash_board, container, false);
+
     }
+
 
 }

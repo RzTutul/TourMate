@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="110dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="5dp"
+    app:cardCornerRadius="4dp"
+    android:layout_margin="6dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:weightSum="3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:padding="6dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="2.5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            >
+
+            <TextView
+                android:id="@+id/row_eventName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Study Tour"
+                />
+               <TextView
+                android:id="@+id/row_startLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Dhaka"
+                />
+               <TextView
+                android:id="@+id/row_destinaiton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cox Bazar"
+                />
+              <TextView
+                android:id="@+id/row_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cox Bazar"
+                />
+              <TextView
+                android:id="@+id/row_buget"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1000"
+                />
+
+
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_weight="0.5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/row_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:padding="20dp"
+                android:text="&#8942;"
+                android:textSize="40sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>
