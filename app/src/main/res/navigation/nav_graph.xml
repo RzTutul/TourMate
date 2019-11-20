@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment4">
+
+    <fragment
+        android:id="@+id/loginFragment4"
+        android:name="com.example.tourmate.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment4_to_mainDashBoard3"
+            app:destination="@id/mainDashBoard"
+            app:enterAnim="@anim/nav_default_enter_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainDashBoard"
+        android:name="com.example.tourmate.MainDashBoard"
+        android:label="fragment_main_dash_board"
+        tools:layout="@layout/fragment_main_dash_board" />
+</navigation>
