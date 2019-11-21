@@ -7,18 +7,20 @@ public class TourMateEventPojo {
     private String destination;
     private int initialBudget;
     private String departureDate;
+    private String createEventDate;
 
     public TourMateEventPojo() {
         //required for firebase
     }
 
-    public TourMateEventPojo(String eventID, String eventName, String departure, String destination, int initialBudget, String departureDate) {
+    public TourMateEventPojo(String eventID, String eventName, String departure, String destination, int initialBudget, String departureDate,String createEventDate) {
         this.eventID = eventID;
         this.eventName = eventName;
         this.departure = departure;
         this.destination = destination;
         this.initialBudget = initialBudget;
         this.departureDate = departureDate;
+        this.createEventDate = createEventDate;
     }
 
     public String getEventID() {
@@ -68,4 +70,15 @@ public class TourMateEventPojo {
     public void setDepartureDate(String departureDate) {
         this.departureDate = departureDate;
     }
+
+
+    public String getCreateEventDate() {
+        return createEventDate;
+    }
+
+    public void setCreateEventDate(String createEventDate) {
+        this.createEventDate = createEventDate;
+    }
+
+
 }

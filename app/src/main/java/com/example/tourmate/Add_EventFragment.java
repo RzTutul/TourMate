@@ -20,8 +20,10 @@ import com.example.tourmate.pojos.TourMateEventPojo;
 import com.example.tourmate.viewmodels.EventViewModel;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 
 /**
@@ -69,7 +71,7 @@ public class Add_EventFragment extends Fragment {
                 String destination = destinationET.getText().toString();
                 String budget = budgetET.getText().toString();
 
-                TourMateEventPojo tourMateEventPojo = new TourMateEventPojo(null,eventName,startLocation,destination,Integer.parseInt(budget),departureDate);
+                TourMateEventPojo tourMateEventPojo = new TourMateEventPojo(null,eventName,startLocation,destination,Integer.parseInt(budget),departureDate,getDateTime());
                 eventViewModel.SaveEvent(tourMateEventPojo);
 
                 Navigation.findNavController(view).navigate(R.id.eventListFragment);
@@ -112,4 +114,9 @@ public class Add_EventFragment extends Fragment {
 
         }
     };
+    private String getDateTime() {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
 }
