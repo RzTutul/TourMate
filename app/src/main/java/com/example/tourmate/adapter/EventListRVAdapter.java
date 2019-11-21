@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tourmate.R;
+import com.example.tourmate.helper.EventUtils;
 import com.example.tourmate.pojos.TourMateEventPojo;
 
 import java.text.DateFormat;
@@ -46,14 +47,26 @@ public class EventListRVAdapter extends RecyclerView.Adapter<EventListRVAdapter.
         holder.budget.setText(String.valueOf(eventPojos.get(position).getInitialBudget()));
         holder.createEventDate.setText((eventPojos.get(position).getCreateEventDate()));
 
-        String goningdate =eventPojos.get(position).getDepartureDate();
-        String crrentDate = getCrrentDateTime();
-        String[] arrOfStr = goningdate.split("/", 2);
-        String[] arrOfStr1 = crrentDate.split("/", 2);
+        String goingDate =(eventPojos.get(position).getDepartureDate());
 
 
+        long diffrentDate = EventUtils.getDefferentBetweenTwoDate(EventUtils.getCrrentDate(),goingDate);
+        if (diffrentDate==0)
+        {
+            holder.dateLeft.setText("Have a safe Journey!");
 
-      holder.dateLeft.setText(String.valueOf((Integer.parseInt(arrOfStr[0])-Integer.parseInt(arrOfStr1[0]))+" days Left"));
+        }
+        else if (diffrentDate<0)
+        {
+            holder.dateLeft.setText("Tour Finished!");
+        }
+
+        else
+        {
+            holder.dateLeft.setText(String.valueOf(EventUtils.getDefferentBetweenTwoDate(EventUtils.getCrrentDate(),goingDate))+" Days Left");
+
+        }
+
 
         holder.rowMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,12 +99,7 @@ public class EventListRVAdapter extends RecyclerView.Adapter<EventListRVAdapter.
 
             rowMenu = itemView.findViewById(R.id.row_menu);
 
-
         }
     }
-    private String getCrrentDateTime() {
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        Date date = new Date();
-        return dateFormat.format(date);
-    }
+
 }

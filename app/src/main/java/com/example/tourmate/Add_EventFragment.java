@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 
+import com.example.tourmate.helper.EventUtils;
 import com.example.tourmate.pojos.TourMateEventPojo;
 import com.example.tourmate.viewmodels.EventViewModel;
 import com.google.android.material.textfield.TextInputEditText;
@@ -71,7 +72,7 @@ public class Add_EventFragment extends Fragment {
                 String destination = destinationET.getText().toString();
                 String budget = budgetET.getText().toString();
 
-                TourMateEventPojo tourMateEventPojo = new TourMateEventPojo(null,eventName,startLocation,destination,Integer.parseInt(budget),departureDate,getDateTime());
+                TourMateEventPojo tourMateEventPojo = new TourMateEventPojo(null,eventName,startLocation,destination,Integer.parseInt(budget),departureDate, EventUtils.getDateWithTime());
                 eventViewModel.SaveEvent(tourMateEventPojo);
 
                 Navigation.findNavController(view).navigate(R.id.eventListFragment);
@@ -114,9 +115,5 @@ public class Add_EventFragment extends Fragment {
 
         }
     };
-    private String getDateTime() {
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        Date date = new Date();
-        return dateFormat.format(date);
-    }
+
 }
