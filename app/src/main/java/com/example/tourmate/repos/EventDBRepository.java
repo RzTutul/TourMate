@@ -19,14 +19,15 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FirebaseDBRepository {
+public class EventDBRepository {
     private FirebaseUser firebaseUser;
     private DatabaseReference rootRef;
     private DatabaseReference userRef;
     private DatabaseReference eventRef;
     public MutableLiveData<List<TourMateEventPojo>> eventListLD;
+    public MutableLiveData<TourMateEventPojo> eventDetilsLD = new MutableLiveData<>();
 
-    public FirebaseDBRepository() {
+    public EventDBRepository() {
 
         eventListLD = new MutableLiveData<>();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -71,7 +72,63 @@ public class FirebaseDBRepository {
             }
         });
 
-
-
     }
+
+    public MutableLiveData<TourMateEventPojo> getEventDetialbyEventID(String eventID)
+    {
+        eventRef.child(eventID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                TourMateEventPojo eventPojo = dataSnapshot.getValue(TourMateEventPojo.class);
+
+                eventDetilsLD.postValue(eventPojo);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        return eventDetilsLD;
+    }
+
+
+    public void UpdateEvent(TourMateEventPojo eventPojo) {
+
+        String eventId = eventPojo.getEventID();
+        eventPojo.setEventID(eventId);
+        eventRef.child(eventId).setValue(eventPojo).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                // Toast.makeText(, "", Toast.LENGTH_SHORT).show();
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+    }
+       public void DeleteEventFromEventDB(TourMateEventPojo eventPojo) {
+
+           String eventId = eventPojo.getEventID();
+           eventPojo.setEventID(eventId);
+
+           eventRef.child(eventId).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+               @Override
+               public void onSuccess(Void aVoid) {
+                   // Toast.makeText(, "", Toast.LENGTH_SHORT).show();
+
+               }
+           }).addOnFailureListener(new OnFailureListener() {
+               @Override
+               public void onFailure(@NonNull Exception e) {
+
+               }
+           });
+    }
+
+
 }

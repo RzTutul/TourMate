@@ -1,17 +1,28 @@
 package com.example.tourmate.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tourmate.R;
 import com.example.tourmate.helper.EventUtils;
+import com.example.tourmate.pojos.EventExpensePojo;
 import com.example.tourmate.pojos.TourMateEventPojo;
+import com.example.tourmate.viewmodels.EventViewModel;
+import com.example.tourmate.viewmodels.ExpenseViewModel;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -21,10 +32,12 @@ import java.util.List;
 public class EventListRVAdapter extends RecyclerView.Adapter<EventListRVAdapter.EventViewHolder>{
     private List<TourMateEventPojo> eventPojos;
     private Context context;
+    private EventViewModel eventViewModel = new EventViewModel();
 
     public EventListRVAdapter(Context context,List<TourMateEventPojo> eventPojos) {
         this.eventPojos = eventPojos;
         this.context = context;
+
     }
 
     @NonNull
@@ -38,7 +51,7 @@ public class EventListRVAdapter extends RecyclerView.Adapter<EventListRVAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final EventViewHolder holder, final int position) {
 
         holder.eventName.setText(eventPojos.get(position).getEventName());
         holder.startLocation.setText(eventPojos.get(position).getDeparture());
@@ -72,6 +85,43 @@ public class EventListRVAdapter extends RecyclerView.Adapter<EventListRVAdapter.
             @Override
             public void onClick(View v) {
 
+                String eventID = eventPojos.get(position).getEventID();
+                final TourMateEventPojo eventPojo = eventPojos.get(position);
+
+                final Bundle bundle = new Bundle();
+                bundle.putString("id",eventID);
+
+                PopupMenu popupMenu = new PopupMenu(context, v);
+                popupMenu.getMenuInflater().inflate(R.menu.row_menu, popupMenu.getMenu());
+                popupMenu.show();
+
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+
+                        switch (item.getItemId())
+                        {
+                            case R.id.detailMenu:
+                                Navigation.findNavController(holder.itemView).navigate(R.id.mainDashBoard,bundle);
+                                break;
+
+                            case R.id.editMenu:
+                                Navigation.findNavController(holder.itemView).navigate(R.id.add_Event,bundle);
+
+
+                                break;
+                            case R.id.deleteMenu:
+                                eventViewModel.DeleteEvent(eventPojo);
+
+                                break;
+
+                        }
+
+                        return false;
+                    }
+                });
+
+
             }
         });
 
@@ -101,5 +151,8 @@ public class EventListRVAdapter extends RecyclerView.Adapter<EventListRVAdapter.
 
         }
     }
+
+
+
 
 }

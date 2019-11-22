@@ -11,13 +11,13 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class FirebaseRepository {
+public class FirebaseLoginRepository {
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private MutableLiveData<LoginViewModel.AuthenticationState> stateLiveData;
     private MutableLiveData<String> errMsg = new MutableLiveData<>();
 
-    public FirebaseRepository(MutableLiveData<LoginViewModel.AuthenticationState> stateLiveData) {
+    public FirebaseLoginRepository(MutableLiveData<LoginViewModel.AuthenticationState> stateLiveData) {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         this.stateLiveData = stateLiveData;

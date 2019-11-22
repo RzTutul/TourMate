@@ -38,6 +38,14 @@
         android:id="@+id/eventListFragment"
         android:name="com.example.tourmate.EventListFragment"
         android:label="fragment_event_list"
-        tools:layout="@layout/fragment_event_list" />
+        tools:layout="@layout/fragment_event_list" >
+        <action
+            android:id="@+id/action_eventListFragment_to_mainDashBoard"
+            app:destination="@id/mainDashBoard"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
 
 </navigation>

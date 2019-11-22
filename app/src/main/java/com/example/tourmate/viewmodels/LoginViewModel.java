@@ -3,10 +3,10 @@ package com.example.tourmate.viewmodels;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.tourmate.repos.FirebaseRepository;
+import com.example.tourmate.repos.FirebaseLoginRepository;
 
 public class LoginViewModel extends ViewModel {
-    private FirebaseRepository firebaseRepository;
+    private FirebaseLoginRepository firebaseLoginRepository;
     public MutableLiveData<AuthenticationState> stateLiveData;
     public MutableLiveData<String> errMsg = new MutableLiveData<>();
 
@@ -17,11 +17,11 @@ public class LoginViewModel extends ViewModel {
     }
     public LoginViewModel() {
         stateLiveData = new MutableLiveData<>();
-        firebaseRepository = new FirebaseRepository(stateLiveData);
+        firebaseLoginRepository = new FirebaseLoginRepository(stateLiveData);
 
-        errMsg = firebaseRepository.getErrMsg();
+        errMsg = firebaseLoginRepository.getErrMsg();
 
-        if (firebaseRepository.getFirebaseUser() != null)
+        if (firebaseLoginRepository.getFirebaseUser() != null)
         {
             stateLiveData.postValue(AuthenticationState.AUTHENTICATED);
         }
@@ -33,11 +33,11 @@ public class LoginViewModel extends ViewModel {
 
     public void login(String email,String pass)
     {
-       stateLiveData = firebaseRepository.LoginFirebaseUser(email,pass);
+       stateLiveData = firebaseLoginRepository.LoginFirebaseUser(email,pass);
     }
     public void register(String email,String pass)
     {
-        stateLiveData =  firebaseRepository.RegisterFireBaseUser(email,pass);
+        stateLiveData =  firebaseLoginRepository.RegisterFireBaseUser(email,pass);
     }
 
 }

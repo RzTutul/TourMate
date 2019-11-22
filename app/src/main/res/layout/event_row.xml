@@ -44,7 +44,7 @@
                 android:id="@+id/row_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Cox Bazar"
+                android:text="23/32/12"
                 />
               <TextView
                 android:id="@+id/row_buget"
@@ -63,14 +63,14 @@
                     android:id="@+id/row_createEventdate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="23/32/19"
+                    android:text="23/32/19 02:34 PM"
                     />
                   <TextView
-                      android:layout_marginLeft="50dp"
+                      android:layout_marginLeft="30dp"
                       android:id="@+id/row_daysLeft"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="4 days left"
+                    android:text="Have a Safe Journey"
                     />
 
             </LinearLayout>

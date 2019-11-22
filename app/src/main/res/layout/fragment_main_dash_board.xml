@@ -1,14 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainDashBoard">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/eventNameTV"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        tools:text="Tour Name"
+        android:gravity="center"
+        android:textSize="30dp"
+        />
 
-</FrameLayout>
+
+    <TextView
+        android:layout_below="@+id/eventNameTV"
+
+        android:id="@+id/budgetTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        tools:text="Budget : 10000" />
+
+    <TextView
+        android:layout_below="@+id/budgetTV"
+        android:id="@+id/expenseTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+       tools:text="Expense : 10000" />
+
+    <TextView
+        android:layout_below="@+id/expenseTV"
+        android:id="@+id/remainingTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        tools:text="Remaining : 10000" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_below="@+id/remainingTV"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/colorPrimaryDark"
+        />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/expenseRV"
+        android:layout_below="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="20dp"
+        android:id="@+id/addExpenseBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:src="@android:drawable/ic_input_add" />
+
+
+</RelativeLayout>
