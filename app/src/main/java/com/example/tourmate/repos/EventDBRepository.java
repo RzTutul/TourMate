@@ -35,6 +35,7 @@ public class EventDBRepository {
         rootRef = FirebaseDatabase.getInstance().getReference();
         userRef = rootRef.child(firebaseUser.getUid());
         eventRef = userRef.child("MyEvents");
+        eventRef.keepSynced(true);
 
         eventRef.addValueEventListener(new ValueEventListener() {
             @Override
