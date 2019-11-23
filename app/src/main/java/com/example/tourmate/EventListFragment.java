@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.example.tourmate.adapter.EventListRVAdapter;
 import com.example.tourmate.pojos.TourMateEventPojo;
 import com.example.tourmate.viewmodels.EventViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -34,6 +35,7 @@ public class EventListFragment extends Fragment {
 
 private EventViewModel eventViewModel;
 private EventListRVAdapter eventListRVAdapter;
+private FloatingActionButton addEventBtn;
 private RecyclerView eventRV;
     public EventListFragment() {
         // Required empty public constructor
@@ -77,6 +79,15 @@ private RecyclerView eventRV;
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         eventRV = view.findViewById(R.id.eventRV);
+        addEventBtn = view.findViewById(R.id.addEventBtn);
+
+        addEventBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(getActivity(),R.id.nav_host_fragmnet).navigate(R.id.add_Event);
+
+            }
+        });
 
 
         eventViewModel.eventListLD.observe(this, new Observer<List<TourMateEventPojo>>() {
@@ -88,6 +99,20 @@ private RecyclerView eventRV;
                 eventRV.setLayoutManager(llm);
                 eventRV.setAdapter(eventListRVAdapter);
 
+                eventRV.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                    @Override
+                    public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                        switch (newState) {
+                            case RecyclerView.SCROLL_STATE_IDLE:
+                                addEventBtn.show();
+                                break;
+                            default:
+                                addEventBtn.hide();
+                                break;
+                        }
+                        super.onScrollStateChanged(recyclerView, newState);
+                    }
+                });
             }
         });
     }

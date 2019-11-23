@@ -124,6 +124,22 @@ public class MainDashBoard extends Fragment {
                 LinearLayoutManager llm = new LinearLayoutManager(getActivity());
                 expenseRV.setLayoutManager(llm);
                 expenseRV.setAdapter(expenseAdapter);
+
+
+                expenseRV.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                    @Override
+                    public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                        switch (newState) {
+                            case RecyclerView.SCROLL_STATE_IDLE:
+                                addExpenseBtn.show();
+                                break;
+                            default:
+                                addExpenseBtn.hide();
+                                break;
+                        }
+                        super.onScrollStateChanged(recyclerView, newState);
+                    }
+                });
             }
         });
 
