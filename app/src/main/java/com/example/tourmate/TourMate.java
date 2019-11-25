@@ -11,4 +11,6 @@ public class TourMate extends Application {
         super.onCreate();
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
     }
+
+
 }

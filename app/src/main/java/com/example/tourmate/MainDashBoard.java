@@ -42,6 +42,7 @@ public class MainDashBoard extends Fragment {
     private EventViewModel eventViewModel;
    private ExpenseViewModel expenseViewModel;
    private int totalBudget = 0;
+
    private RecyclerView expenseRV;
    private ExpenseListRVAdpater expenseAdapter;
 

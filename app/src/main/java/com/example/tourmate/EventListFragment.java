@@ -45,6 +45,8 @@ private RecyclerView eventRV;
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+
     }
 
     @Override
@@ -116,4 +118,9 @@ private RecyclerView eventRV;
             }
         });
     }
+
+
+
+
+
 }

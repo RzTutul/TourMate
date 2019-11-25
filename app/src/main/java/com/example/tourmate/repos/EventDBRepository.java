@@ -5,6 +5,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.tourmate.pojos.MomentPojo;
 import com.example.tourmate.pojos.TourMateEventPojo;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -24,6 +25,7 @@ public class EventDBRepository {
     private DatabaseReference rootRef;
     private DatabaseReference userRef;
     private DatabaseReference eventRef;
+    private DatabaseReference momentsRef;
     public MutableLiveData<List<TourMateEventPojo>> eventListLD;
     public MutableLiveData<TourMateEventPojo> eventDetilsLD = new MutableLiveData<>();
 
@@ -36,6 +38,7 @@ public class EventDBRepository {
         userRef = rootRef.child(firebaseUser.getUid());
         eventRef = userRef.child("MyEvents");
         eventRef.keepSynced(true);
+
 
         eventRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -132,4 +135,11 @@ public class EventDBRepository {
     }
 
 
+    public void addNewMoment(MomentPojo moments) {
+        String momentId = momentsRef.push().getKey();
+        moments.setMomentId(momentId);
+        momentsRef.child(moments.getEventId())
+                .child(momentId)
+                .setValue(moments);
+    }
 }

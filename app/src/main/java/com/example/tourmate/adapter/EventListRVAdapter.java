@@ -103,6 +103,7 @@ public class EventListRVAdapter extends RecyclerView.Adapter<EventListRVAdapter.
                         {
                             case R.id.detailMenu:
                                 Navigation.findNavController(holder.itemView).navigate(R.id.mainDashBoard,bundle);
+
                                 break;
 
                             case R.id.editMenu:
@@ -120,6 +121,23 @@ public class EventListRVAdapter extends RecyclerView.Adapter<EventListRVAdapter.
                         return false;
                     }
                 });
+
+
+            }
+        });
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String eventID = eventPojos.get(position).getEventID();
+                final TourMateEventPojo eventPojo = eventPojos.get(position);
+
+                final Bundle bundle = new Bundle();
+                bundle.putString("id",eventID);
+                Navigation.findNavController(holder.itemView).navigate(R.id.eventDashBoard,bundle);
+
+
 
 
             }
