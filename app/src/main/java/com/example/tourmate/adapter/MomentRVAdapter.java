@@ -1,5 +1,6 @@
 package com.example.tourmate.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,8 +33,29 @@ public class MomentRVAdapter extends RecyclerView.Adapter<MomentRVAdapter.Moment
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MomentViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MomentViewHolder holder,final int position) {
         Picasso.get().load(momentPojos.get(position).getDownloadUrl()).into(holder.imageView);
+
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Image");
+                LayoutInflater inflater = LayoutInflater.from(context);
+                View view =inflater.inflate(R.layout.single_image_dialog,null);
+
+                builder.setView(view);
+
+                ImageView image = view.findViewById(R.id.imageView);
+
+                Picasso.get().load(momentPojos.get(position).getDownloadUrl()).into(image);
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+
+            }
+        });
     }
 
     @Override
