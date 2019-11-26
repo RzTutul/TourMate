@@ -1,10 +1,13 @@
 package com.example.tourmate;
 
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -12,12 +15,14 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.example.tourmate.adapter.EventListRVAdapter;
@@ -25,6 +30,8 @@ import com.example.tourmate.pojos.TourMateEventPojo;
 import com.example.tourmate.viewmodels.EventViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -45,6 +52,8 @@ private RecyclerView eventRV;
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 
     }
@@ -96,6 +105,8 @@ private RecyclerView eventRV;
             @Override
             public void onChanged(List<TourMateEventPojo> tourMateEventPojos) {
 
+
+
                 eventListRVAdapter = new EventListRVAdapter(getActivity(), tourMateEventPojos);
                 LinearLayoutManager llm = new LinearLayoutManager(getActivity());
                 eventRV.setLayoutManager(llm);
@@ -118,9 +129,5 @@ private RecyclerView eventRV;
             }
         });
     }
-
-
-
-
 
 }

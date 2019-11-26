@@ -135,11 +135,5 @@ public class EventDBRepository {
     }
 
 
-    public void addNewMoment(MomentPojo moments) {
-        String momentId = momentsRef.push().getKey();
-        moments.setMomentId(momentId);
-        momentsRef.child(moments.getEventId())
-                .child(momentId)
-                .setValue(moments);
-    }
+
 }
