@@ -190,7 +190,7 @@ public class MomentGallary extends Fragment {
                 resultCode == Activity.RESULT_OK){
             Log.e(TAG, "onActivityResult: "+currentPhotoPath);
             File file = new File(currentPhotoPath);
-           momentViewModel.uploadImageToFirebaseStorage(file, eventId);
+           momentViewModel.uploadImageToFirebaseStorage(getActivity(),file, eventId);
         }
     }
 

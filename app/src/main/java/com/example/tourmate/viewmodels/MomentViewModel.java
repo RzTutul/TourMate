@@ -1,7 +1,11 @@
 package com.example.tourmate.viewmodels;
 
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
@@ -16,7 +20,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public class MomentViewModel extends ViewModel {
@@ -28,11 +34,34 @@ public class MomentViewModel extends ViewModel {
         momentRepository = new MomentRepository();
     }
 
-    public void uploadImageToFirebaseStorage(File file, final String eventId) {
+    public void uploadImageToFirebaseStorage(final Context context,File file, final String eventId) {
+/*
         StorageReference rootRef = FirebaseStorage.getInstance().getReference();
         Uri fileUri = Uri.fromFile(file);
         final StorageReference imageRef = rootRef.child("EventImages/" + fileUri.getLastPathSegment());
         UploadTask uploadTask = imageRef.putFile(fileUri);
+
+
+*/
+
+        StorageReference rootRef = FirebaseStorage.getInstance().getReference();
+        Uri fileUri = Uri.fromFile(file);
+        final StorageReference imageRef = rootRef.child("EventImages/" + fileUri.getLastPathSegment());
+
+        ///For image Compress
+        Bitmap bmp = null;
+        try {
+            bmp = MediaStore.Images.Media.getBitmap(context.getContentResolver(),fileUri);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 25, baos);
+        byte[] data = baos.toByteArray();
+
+        UploadTask uploadTask = imageRef.putBytes(data);
+
 
 
 
@@ -53,7 +82,7 @@ public class MomentViewModel extends ViewModel {
             @Override
             public void onComplete(@NonNull Task<Uri> task) {
                 if (task.isSuccessful()) {
-                    Log.e("moment", "upload completed");
+                    Toast.makeText(context, "Uploaded", Toast.LENGTH_SHORT).show();
                     Uri downloadUri = task.getResult();
                     MomentPojo moments = new MomentPojo(null, eventId, downloadUri.toString());
                     momentRepository.addNewMoment(moments);
@@ -69,5 +98,10 @@ public class MomentViewModel extends ViewModel {
     public void getMoments(String eventId){
 
         momentsLD = momentRepository.getAllMoments(eventId);
+    }
+
+    public void deleteImage(MomentPojo momentPojo) {
+
+        momentRepository.deleteImagefromDB(momentPojo);
     }
 }

@@ -5,13 +5,16 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tourmate.R;
 import com.example.tourmate.pojos.MomentPojo;
+import com.example.tourmate.viewmodels.MomentViewModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -19,10 +22,12 @@ import java.util.List;
 public class MomentRVAdapter extends RecyclerView.Adapter<MomentRVAdapter.MomentViewHolder>{
     private Context context;
     private List<MomentPojo> momentPojos;
+    private MomentViewModel momentViewModel = new MomentViewModel();
 
     public MomentRVAdapter(Context context, List<MomentPojo> momentPojos) {
         this.context = context;
         this.momentPojos = momentPojos;
+
     }
 
     @NonNull
@@ -39,6 +44,9 @@ public class MomentRVAdapter extends RecyclerView.Adapter<MomentRVAdapter.Moment
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                final MomentPojo momentPojo = momentPojos.get(position);
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("Image");
                 LayoutInflater inflater = LayoutInflater.from(context);
@@ -47,11 +55,22 @@ public class MomentRVAdapter extends RecyclerView.Adapter<MomentRVAdapter.Moment
                 builder.setView(view);
 
                 ImageView image = view.findViewById(R.id.imageView);
+                Button deletebtn = view.findViewById(R.id.deleteImagebtn);
 
                 Picasso.get().load(momentPojos.get(position).getDownloadUrl()).into(image);
 
-                AlertDialog dialog = builder.create();
+                final AlertDialog dialog = builder.create();
                 dialog.show();
+
+                deletebtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        momentViewModel.deleteImage(momentPojo);
+                        Toast.makeText(context, "Deleted!", Toast.LENGTH_SHORT).show();
+
+                        dialog.dismiss();
+                    }
+                });
 
 
             }

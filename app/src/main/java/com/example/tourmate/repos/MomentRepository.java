@@ -1,9 +1,13 @@
 package com.example.tourmate.repos;
 
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.tourmate.pojos.MomentPojo;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -11,6 +15,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,5 +65,31 @@ public class MomentRepository {
                     }
                 });
         return momentsLD;
+    }
+
+    public void deleteImagefromDB(MomentPojo momentPojo) {
+        String momentID = momentPojo.getMomentId();
+        momentsRef.child(momentPojo.getEventId())
+                .child(momentID)
+                .removeValue();
+
+        //Delete also firebaseStrogae
+
+        FirebaseStorage  mFirebaseStorage = FirebaseStorage.getInstance();
+        StorageReference photoRef = mFirebaseStorage.getReferenceFromUrl(momentPojo.getDownloadUrl());
+
+        photoRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+
+               /// Toast.makeText(, "", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+
     }
 }
