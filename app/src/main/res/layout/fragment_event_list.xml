@@ -7,6 +7,13 @@
     tools:context=".EventListFragment">
 
 
+    <ProgressBar
+        android:id="@+id/eventProgress"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/eventRV"
         android:layout_width="match_parent"

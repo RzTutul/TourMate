@@ -13,6 +13,7 @@
 
 
     <LinearLayout
+        android:id="@+id/myview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -26,11 +27,7 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-        <FrameLayout
-            android:id="@+id/fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+
             <fragment
                 android:id="@+id/nav_host_fragmnet"
                 android:name="androidx.navigation.fragment.NavHostFragment"
@@ -39,7 +36,6 @@
                 app:defaultNavHost="true"
                 app:navGraph="@navigation/nav_graph" />
 
-        </FrameLayout>
 
     </LinearLayout>
 

@@ -2,13 +2,19 @@ package com.example.tourmate;
 
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
+import androidx.navigation.Navigation;
 
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,14 +25,17 @@ import com.google.android.material.navigation.NavigationView;
 
 
 public class MainActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener{
-    int count;
+    private boolean isExit = false;
 
+    private NavigationView navigationView;
     private DrawerLayout drawer;
+    private View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        view = findViewById(R.id.myview);
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -34,7 +43,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
 
         drawer = findViewById(R.id.drawer_layout);
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         View headerView = navigationView.getHeaderView(0);
@@ -46,25 +55,83 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragmnet);
+        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+            @Override
+            public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
+                switch (destination.getId()){
+                    case R.id.eventListFragment:
+                        isExit = true;
+                        break;
+                    default:
+                        isExit = false;
+                        break;
+                }
+            }
+        });
+
+
 
     }
 
     @Override
     public void onBackPressed() {
+
+
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
         }
+        else
+        {
+            if (isExit){
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("Are you sure you want to exit?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                MainActivity.this.finish();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+
+            else{
+                super.onBackPressed();
+            }
+
+
+        }
+
+
+
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId())
         {
-            case R.id.nav_profile:
-                Toast.makeText(this, "Worked", Toast.LENGTH_SHORT).show();
+            case R.id.nav_home:
+                /*Navigation.findNavController(this, R.id.nav_host_fragmnet)
+                        .navigate(R.id.weatherFragment);*/
                 break;
+
+              case R.id.nav_weather:
+                  Navigation.findNavController(this, R.id.nav_host_fragmnet)
+                          .navigate(R.id.weatherFragment);
+                  break;
+
+              case R.id.nav_nearby:
+                  Navigation.findNavController(this, R.id.nav_host_fragmnet)
+                          .navigate(R.id.nearByFragment);
+                  break;
+
+
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;

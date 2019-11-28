@@ -7,6 +7,17 @@
     tools:context=".MomentGallary">
 
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/momentPicRV"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ProgressBar
+        android:id="@+id/uploadingProgress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerInParent="true" />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -20,8 +31,5 @@
         android:layout_margin="50dp"
         android:src="@android:drawable/ic_menu_camera" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/momentPicRV"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+
 </RelativeLayout>

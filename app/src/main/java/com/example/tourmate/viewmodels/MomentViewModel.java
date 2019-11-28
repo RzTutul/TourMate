@@ -5,12 +5,14 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.tourmate.MomentGallary;
 import com.example.tourmate.pojos.MomentPojo;
 import com.example.tourmate.repos.MomentRepository;
 import com.google.android.gms.tasks.Continuation;
@@ -40,9 +42,9 @@ public class MomentViewModel extends ViewModel {
         Uri fileUri = Uri.fromFile(file);
         final StorageReference imageRef = rootRef.child("EventImages/" + fileUri.getLastPathSegment());
         UploadTask uploadTask = imageRef.putFile(fileUri);
-
-
 */
+        MomentGallary.uploadProgressBar.setVisibility(View.VISIBLE);
+        Toast.makeText(context, "Wait Uploading", Toast.LENGTH_SHORT).show();
 
         StorageReference rootRef = FirebaseStorage.getInstance().getReference();
         Uri fileUri = Uri.fromFile(file);
@@ -63,8 +65,6 @@ public class MomentViewModel extends ViewModel {
         UploadTask uploadTask = imageRef.putBytes(data);
 
 
-
-
         //For get URI Link of Image
 
         Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
@@ -83,6 +83,7 @@ public class MomentViewModel extends ViewModel {
             public void onComplete(@NonNull Task<Uri> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(context, "Uploaded", Toast.LENGTH_SHORT).show();
+                    MomentGallary.uploadProgressBar.setVisibility(View.GONE);
                     Uri downloadUri = task.getResult();
                     MomentPojo moments = new MomentPojo(null, eventId, downloadUri.toString());
                     momentRepository.addNewMoment(moments);
@@ -104,4 +105,6 @@ public class MomentViewModel extends ViewModel {
 
         momentRepository.deleteImagefromDB(momentPojo);
     }
+
+
 }

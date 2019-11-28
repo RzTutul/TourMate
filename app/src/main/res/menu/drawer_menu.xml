@@ -5,30 +5,56 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_message"
+            android:id="@+id/nav_home"
 
-            android:title="Message" />
+            android:title="Home" />
         <item
-            android:id="@+id/nav_chat"
-
-            android:title="Chat" />
-        <item
-            android:id="@+id/nav_profile"
-
-            android:title="Profile" />
+            android:id="@+id/nav_event"
+            android:title="Event" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Location">
+        <menu>
+
+            <group android:checkableBehavior="single">
+            <item
+                android:id="@+id/nav_nearby"
+
+                android:title="Nearby Place" />
+            <item
+                android:id="@+id/nav_weather"
+                android:title="Weather" />
+              <item
+                android:id="@+id/nav_compass"
+                android:title="Compass" />
+            </group>
+
+
+        </menu>
+    </item>
+
+
+
+    <item android:title="Communicate" android:checkableBehavior="single">
         <menu>
             <item
                 android:id="@+id/nav_share"
-
                 android:title="Share" />
             <item
                 android:id="@+id/nav_send"
-
                 android:title="Send" />
         </menu>
     </item>
+     <item android:title="Privacy">
+        <menu>
+            <item
+                android:id="@+id/nav_logout"
+                android:title="Logout" />
+            <item
+                android:id="@+id/nav_exit"
+                android:title="Exit" />
+        </menu>
+    </item>
+
 
 </menu>

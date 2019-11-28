@@ -103,17 +103,16 @@ public class EventListRVAdapter extends RecyclerView.Adapter<EventListRVAdapter.
                         {
                             case R.id.detailMenu:
                                 Navigation.findNavController(holder.itemView).navigate(R.id.mainDashBoard,bundle);
-
                                 break;
 
                             case R.id.editMenu:
                                 Navigation.findNavController(holder.itemView).navigate(R.id.add_Event,bundle);
 
-
                                 break;
                             case R.id.deleteMenu:
                                 eventViewModel.DeleteEvent(eventPojo);
-
+                                Navigation.findNavController(holder.itemView).navigate(R.id.eventListFragment
+                                );
                                 break;
 
                         }
@@ -142,6 +141,7 @@ public class EventListRVAdapter extends RecyclerView.Adapter<EventListRVAdapter.
 
             }
         });
+
 
 
     }

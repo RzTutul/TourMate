@@ -12,6 +12,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.tourmate.image_donwload_manager.DirectoryHelper;
+import com.example.tourmate.image_donwload_manager.DownloadImageService;
 import com.example.tourmate.R;
 import com.example.tourmate.pojos.MomentPojo;
 import com.example.tourmate.viewmodels.MomentViewModel;
@@ -24,9 +26,11 @@ public class MomentRVAdapter extends RecyclerView.Adapter<MomentRVAdapter.Moment
     private List<MomentPojo> momentPojos;
     private MomentViewModel momentViewModel = new MomentViewModel();
 
+
     public MomentRVAdapter(Context context, List<MomentPojo> momentPojos) {
         this.context = context;
         this.momentPojos = momentPojos;
+
 
     }
 
@@ -39,8 +43,7 @@ public class MomentRVAdapter extends RecyclerView.Adapter<MomentRVAdapter.Moment
 
     @Override
     public void onBindViewHolder(@NonNull MomentViewHolder holder,final int position) {
-        Picasso.get().load(momentPojos.get(position).getDownloadUrl()).into(holder.imageView);
-
+        Picasso.get().load(momentPojos.get(position).getDownloadUrl()).fit().into(holder.imageView);
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,8 +59,9 @@ public class MomentRVAdapter extends RecyclerView.Adapter<MomentRVAdapter.Moment
 
                 ImageView image = view.findViewById(R.id.imageView);
                 Button deletebtn = view.findViewById(R.id.deleteImagebtn);
+                Button donwloadbtn= view.findViewById(R.id.downlaodbtn);
 
-                Picasso.get().load(momentPojos.get(position).getDownloadUrl()).into(image);
+                Picasso.get().load(momentPojos.get(position).getDownloadUrl()).fit().into(image);
 
                 final AlertDialog dialog = builder.create();
                 dialog.show();
@@ -67,6 +71,15 @@ public class MomentRVAdapter extends RecyclerView.Adapter<MomentRVAdapter.Moment
                     public void onClick(View v) {
                         momentViewModel.deleteImage(momentPojo);
                         Toast.makeText(context, "Deleted!", Toast.LENGTH_SHORT).show();
+
+                        dialog.dismiss();
+                    }
+                });
+
+                donwloadbtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        context.startService(DownloadImageService.getDownloadService(context, momentPojo.getDownloadUrl(), DirectoryHelper.ROOT_DIRECTORY_NAME.concat("/")));
 
                         dialog.dismiss();
                     }
@@ -90,4 +103,6 @@ public class MomentRVAdapter extends RecyclerView.Adapter<MomentRVAdapter.Moment
 
         }
     }
+
+
 }

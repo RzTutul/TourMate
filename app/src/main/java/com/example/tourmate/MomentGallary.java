@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.tourmate.adapter.MomentRVAdapter;
@@ -54,6 +55,7 @@ public class MomentGallary extends Fragment {
     private String eventId;
     private RecyclerView momentPicRV;
     private MomentRVAdapter momentRVAdapter;
+    public static ProgressBar uploadProgressBar;
 
 
     public MomentGallary() {
@@ -85,6 +87,7 @@ public class MomentGallary extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         takePicBtn = view.findViewById(R.id.takeaPicbtn);
         momentPicRV = view.findViewById(R.id.momentPicRV);
+        uploadProgressBar = view.findViewById(R.id.uploadingProgress);
 
         takePicBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,7 +104,15 @@ public class MomentGallary extends Fragment {
                 momentRVAdapter = new MomentRVAdapter(getActivity(), momentPojos);
                 GridLayoutManager glm = new GridLayoutManager(getActivity(), 2);
                 momentPicRV.setLayoutManager(glm);
+
+                momentPicRV.setHasFixedSize(true);
+                momentPicRV.setItemViewCacheSize(20);
+                momentPicRV.setDrawingCacheEnabled(true);
+                momentPicRV.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
                 momentPicRV.setAdapter(momentRVAdapter);
+
+
+                uploadProgressBar.setVisibility(View.GONE);
                 momentPicRV.addOnScrollListener(new RecyclerView.OnScrollListener() {
                     @Override
                     public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {

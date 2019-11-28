@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.tourmate.adapter.EventListRVAdapter;
@@ -44,6 +45,7 @@ private EventViewModel eventViewModel;
 private EventListRVAdapter eventListRVAdapter;
 private FloatingActionButton addEventBtn;
 private RecyclerView eventRV;
+private ProgressBar eventProgressBar;
     public EventListFragment() {
         // Required empty public constructor
     }
@@ -91,12 +93,12 @@ private RecyclerView eventRV;
         super.onViewCreated(view, savedInstanceState);
         eventRV = view.findViewById(R.id.eventRV);
         addEventBtn = view.findViewById(R.id.addEventBtn);
+        eventProgressBar = view.findViewById(R.id.eventProgress);
 
         addEventBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(getActivity(),R.id.nav_host_fragmnet).navigate(R.id.add_Event);
-
             }
         });
 
@@ -106,11 +108,12 @@ private RecyclerView eventRV;
             public void onChanged(List<TourMateEventPojo> tourMateEventPojos) {
 
 
-
                 eventListRVAdapter = new EventListRVAdapter(getActivity(), tourMateEventPojos);
                 LinearLayoutManager llm = new LinearLayoutManager(getActivity());
                 eventRV.setLayoutManager(llm);
                 eventRV.setAdapter(eventListRVAdapter);
+                eventProgressBar.setVisibility(View.GONE);
+
 
                 eventRV.addOnScrollListener(new RecyclerView.OnScrollListener() {
                     @Override

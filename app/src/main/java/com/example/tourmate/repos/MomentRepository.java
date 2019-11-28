@@ -1,5 +1,9 @@
 package com.example.tourmate.repos;
 
+import android.app.DownloadManager;
+import android.content.Context;
+import android.net.Uri;
+import android.os.Environment;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,9 +19,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +33,9 @@ public class MomentRepository {
     private DatabaseReference userRef;
     private DatabaseReference momentsRef;
     public MutableLiveData<List<MomentPojo>> momentsLD = new MutableLiveData<>();
+
+    private String DOWNLOAD_DIR = Environment.getExternalStoragePublicDirectory
+            (Environment.DIRECTORY_DOWNLOADS).getPath();
 
     public MomentRepository() {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -78,6 +87,8 @@ public class MomentRepository {
         FirebaseStorage  mFirebaseStorage = FirebaseStorage.getInstance();
         StorageReference photoRef = mFirebaseStorage.getReferenceFromUrl(momentPojo.getDownloadUrl());
 
+
+
         photoRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -92,4 +103,5 @@ public class MomentRepository {
         });
 
     }
+
 }
