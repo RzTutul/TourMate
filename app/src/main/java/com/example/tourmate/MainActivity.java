@@ -21,10 +21,11 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.tourmate.viewmodels.LoginViewModel;
 import com.google.android.material.navigation.NavigationView;
 
 
-public class MainActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener{
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private boolean isExit = false;
 
     private NavigationView navigationView;
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         navigationView.setNavigationItemSelectedListener(this);
 
         View headerView = navigationView.getHeaderView(0);
-        TextView navUsername =  headerView.findViewById(R.id.nav_userName);
+        TextView navUsername = headerView.findViewById(R.id.nav_userName);
         navUsername.setText("Rz Tutul");
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
@@ -59,17 +60,22 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
-                switch (destination.getId()){
+                switch (destination.getId()) {
                     case R.id.eventListFragment:
                         isExit = true;
                         break;
+
+                        case R.id.loginFragment:
+                        isExit = true;
+                        break;
+
+
                     default:
                         isExit = false;
                         break;
                 }
             }
         });
-
 
 
     }
@@ -80,10 +86,8 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
 
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        }
-        else
-        {
-            if (isExit){
+        } else {
+            if (isExit) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage("Are you sure you want to exit?")
                         .setCancelable(false)
@@ -99,9 +103,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
                         });
                 AlertDialog alert = builder.create();
                 alert.show();
-            }
-
-            else{
+            } else {
                 super.onBackPressed();
             }
 
@@ -109,27 +111,39 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         }
 
 
-
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        switch (menuItem.getItemId())
-        {
+        switch (menuItem.getItemId()) {
             case R.id.nav_home:
-                /*Navigation.findNavController(this, R.id.nav_host_fragmnet)
-                        .navigate(R.id.weatherFragment);*/
+                Navigation.findNavController(this, R.id.nav_host_fragmnet)
+                        .navigate(R.id.eventListFragment);
                 break;
 
-              case R.id.nav_weather:
-                  Navigation.findNavController(this, R.id.nav_host_fragmnet)
-                          .navigate(R.id.weatherFragment);
-                  break;
+            case R.id.nav_event:
+                Navigation.findNavController(this, R.id.nav_host_fragmnet)
+                        .navigate(R.id.eventListFragment);
+                break;
 
-              case R.id.nav_nearby:
-                  Navigation.findNavController(this, R.id.nav_host_fragmnet)
-                          .navigate(R.id.nearByFragment);
-                  break;
+            case R.id.nav_weather:
+                Navigation.findNavController(this, R.id.nav_host_fragmnet)
+                        .navigate(R.id.weatherFragment);
+                break;
+
+            case R.id.nav_nearby:
+                Navigation.findNavController(this, R.id.nav_host_fragmnet)
+                        .navigate(R.id.nearByFragment);
+                break;
+            case R.id.nav_compass:
+                Navigation.findNavController(this, R.id.nav_host_fragmnet)
+                        .navigate(R.id.compassFragment);
+                break;
+            case R.id.nav_logout:
+                Navigation.findNavController(this, R.id.nav_host_fragmnet)
+                        .navigate(R.id.loginFragment);
+                break;
+
 
 
         }

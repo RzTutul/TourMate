@@ -55,6 +55,9 @@
         <action
             android:id="@+id/action_eventListFragment_to_eventDashBoard"
             app:destination="@id/eventDashBoard" />
+        <action
+            android:id="@+id/action_eventListFragment_to_compassFragment"
+            app:destination="@id/compassFragment" />
     </fragment>
     <fragment
         android:id="@+id/eventDashBoard"
@@ -80,5 +83,10 @@
         android:name="com.example.tourmate.NearByFragment"
         android:label="fragment_near_by"
         tools:layout="@layout/fragment_near_by" />
+    <fragment
+        android:id="@+id/compassFragment"
+        android:name="com.example.tourmate.CompassFragment"
+        android:label="fragment_compass"
+        tools:layout="@layout/fragment_compass" />
 
 </navigation>
