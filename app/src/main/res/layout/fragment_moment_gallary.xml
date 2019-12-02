@@ -10,7 +10,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/momentPicRV"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"
+        />
 
     <ProgressBar
         android:id="@+id/uploadingProgress"
@@ -29,6 +31,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:layout_margin="50dp"
+
         android:src="@android:drawable/ic_menu_camera" />
 
 

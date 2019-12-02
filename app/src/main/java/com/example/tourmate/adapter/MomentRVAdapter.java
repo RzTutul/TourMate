@@ -19,6 +19,7 @@ import com.example.tourmate.pojos.MomentPojo;
 import com.example.tourmate.viewmodels.MomentViewModel;
 import com.squareup.picasso.Picasso;
 
+import java.util.Collections;
 import java.util.List;
 
 public class MomentRVAdapter extends RecyclerView.Adapter<MomentRVAdapter.MomentViewHolder>{
@@ -28,10 +29,10 @@ public class MomentRVAdapter extends RecyclerView.Adapter<MomentRVAdapter.Moment
 
 
     public MomentRVAdapter(Context context, List<MomentPojo> momentPojos) {
+
+        Collections.reverse(momentPojos);
         this.context = context;
         this.momentPojos = momentPojos;
-
-
     }
 
     @NonNull

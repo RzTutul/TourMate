@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/botton_nav_expense"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+
+        android:title="Expense" />
+
+    <item
+        android:id="@+id/bottom_nav_moment"
+        android:icon="@drawable/ic_photo_camera_black_24dp"
+
+        android:title="Moment" />
+
+    <item
+        android:id="@+id/bottom_nav_event"
+        android:icon="@drawable/ic_event_note_black_24dp"
+        android:title="Event" />
+
+</menu>

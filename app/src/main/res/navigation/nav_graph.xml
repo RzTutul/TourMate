@@ -9,7 +9,12 @@
         android:id="@+id/mainDashBoard"
         android:name="com.example.tourmate.MainDashBoard"
         android:label="fragment_main_dash_board"
-        tools:layout="@layout/fragment_main_dash_board" />
+        tools:layout="@layout/fragment_main_dash_board" >
+        <action
+            android:id="@+id/action_mainDashBoard_to_momentGallary"
+            app:destination="@id/momentGallary"
+            app:popUpToInclusive="false" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.tourmate.LoginFragment"
@@ -24,6 +29,9 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@+id/loginFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
     </fragment>
     <fragment
         android:id="@+id/add_Event"
@@ -53,20 +61,11 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
-            android:id="@+id/action_eventListFragment_to_eventDashBoard"
-            app:destination="@id/eventDashBoard" />
-        <action
             android:id="@+id/action_eventListFragment_to_compassFragment"
             app:destination="@id/compassFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/eventDashBoard"
-        android:name="com.example.tourmate.EventDashBoard"
-        android:label="fragment_event_dash_board"
-        tools:layout="@layout/fragment_event_dash_board" >
         <action
-            android:id="@+id/action_eventDashBoard_to_momentGallary"
-            app:destination="@id/momentGallary" />
+            android:id="@+id/action_eventListFragment_to_add_Event"
+            app:destination="@id/add_Event" />
     </fragment>
     <fragment
         android:id="@+id/momentGallary"
@@ -88,5 +87,14 @@
         android:name="com.example.tourmate.CompassFragment"
         android:label="fragment_compass"
         tools:layout="@layout/fragment_compass" />
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.example.tourmate.RegistrationFragment"
+        android:label="fragment_registration"
+        tools:layout="@layout/fragment_registration" >
+        <action
+            android:id="@+id/action_registrationFragment_to_eventListFragment"
+            app:destination="@id/eventListFragment" />
+    </fragment>
 
 </navigation>

@@ -25,7 +25,6 @@ public class EventDBRepository {
     private DatabaseReference rootRef;
     private DatabaseReference userRef;
     private DatabaseReference eventRef;
-    private DatabaseReference momentsRef;
     public MutableLiveData<List<TourMateEventPojo>> eventListLD;
     public MutableLiveData<TourMateEventPojo> eventDetilsLD = new MutableLiveData<>();
 
@@ -33,7 +32,6 @@ public class EventDBRepository {
 
         eventListLD = new MutableLiveData<>();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
         rootRef = FirebaseDatabase.getInstance().getReference();
         userRef = rootRef.child(firebaseUser.getUid());
         eventRef = userRef.child("MyEvents");
@@ -66,7 +64,6 @@ public class EventDBRepository {
         eventRef.child(eventId).setValue(eventPojo).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-               // Toast.makeText(, "", Toast.LENGTH_SHORT).show();
 
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -84,7 +81,6 @@ public class EventDBRepository {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 TourMateEventPojo eventPojo = dataSnapshot.getValue(TourMateEventPojo.class);
-
                 eventDetilsLD.postValue(eventPojo);
             }
 
@@ -105,7 +101,6 @@ public class EventDBRepository {
         eventRef.child(eventId).setValue(eventPojo).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                // Toast.makeText(, "", Toast.LENGTH_SHORT).show();
 
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -117,13 +112,29 @@ public class EventDBRepository {
     }
        public void DeleteEventFromEventDB(TourMateEventPojo eventPojo) {
 
-           String eventId = eventPojo.getEventID();
-           eventPojo.setEventID(eventId);
+           final String eventId = eventPojo.getEventID();
 
            eventRef.child(eventId).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                @Override
                public void onSuccess(Void aVoid) {
-                   // Toast.makeText(, "", Toast.LENGTH_SHORT).show();
+
+                  DatabaseReference expenseRef = userRef.child("Expenses");
+
+                   expenseRef.child(eventId).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                       @Override
+                       public void onSuccess(Void aVoid) {
+
+                           DatabaseReference momentRef = userRef.child("Moments");
+                            momentRef.child(eventId).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                               @Override
+                               public void onSuccess(Void aVoid) {
+
+
+
+                               }
+                           });
+                       }
+                   });
 
                }
            }).addOnFailureListener(new OnFailureListener() {

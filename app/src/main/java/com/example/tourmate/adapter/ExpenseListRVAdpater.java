@@ -20,6 +20,7 @@ import com.example.tourmate.helper.EventUtils;
 import com.example.tourmate.pojos.EventExpensePojo;
 import com.example.tourmate.viewmodels.ExpenseViewModel;
 
+import java.util.Collections;
 import java.util.List;
 
 public class ExpenseListRVAdpater extends RecyclerView.Adapter<ExpenseListRVAdpater.ExpenseViewHolder>{
@@ -30,6 +31,7 @@ public class ExpenseListRVAdpater extends RecyclerView.Adapter<ExpenseListRVAdpa
     private String eventID;
 
     public ExpenseListRVAdpater(Context context, List<EventExpensePojo> expensePojos) {
+        Collections.reverse(expensePojos);
         this.context = context;
         this.expensePojos = expensePojos;
     }

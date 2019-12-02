@@ -5,4 +5,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="wether_api_key">a163a459fd8dffcbc774a76f864adb1a</string>
+    <string name="forcastwether_api_key">31b114dfbba8a5d3500917b2515db196</string>
+
+
 </resources>

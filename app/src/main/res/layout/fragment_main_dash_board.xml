@@ -7,7 +7,19 @@
     android:orientation="vertical"
     tools:context=".MainDashBoard">
 
+
+    <ProgressBar
+        android:progressDrawable="@android:drawable/progress_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:max="100"
+        />
+
+
     <TextView
+        android:layout_below="@+id/progressBar"
         android:id="@+id/eventNameTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,6 +27,7 @@
         android:gravity="center"
         android:textSize="30dp"
         />
+
 
 
     <TextView
@@ -52,17 +65,58 @@
         />
 
 
+
+
+    <androidx.cardview.widget.CardView
+        android:visibility="gone"
+        android:id="@+id/addEventCardView"
+        android:layout_margin="6dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        >
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <TextView
+                android:layout_gravity="center"
+                android:textSize="25sp"
+                android:text="No Expense Found!"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <TextView
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:text="Tap+ Add one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/expenseRV"
         android:layout_below="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"
+
+        />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_margin="20dp"
+        android:layout_margin="60dp"
         android:id="@+id/addExpenseBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

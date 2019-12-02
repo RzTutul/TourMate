@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -17,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,7 +37,6 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class MainDashBoard extends Fragment {
-
     private String eventID = null;
    private FloatingActionButton addExpenseBtn;
    private TextView eventName, budgetTV,expenseTV,remainingTV;
@@ -43,8 +44,13 @@ public class MainDashBoard extends Fragment {
    private ExpenseViewModel expenseViewModel;
    private int totalBudget = 0;
 
+   private ProgressBar progressBar;
+
    private RecyclerView expenseRV;
    private ExpenseListRVAdpater expenseAdapter;
+   private CardView addExpenseCard;
+
+
 
 
     public MainDashBoard() {
@@ -85,6 +91,16 @@ public class MainDashBoard extends Fragment {
 
         addExpenseBtn = view.findViewById(R.id.addExpenseBtn);
 
+        progressBar = view.findViewById(R.id.progressBar);
+        addExpenseCard = view.findViewById(R.id.addEventCardView);
+
+        addExpenseCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showExpenseDilog();
+            }
+        });
+
 
 
 
@@ -100,7 +116,9 @@ public class MainDashBoard extends Fragment {
             public void onChanged(TourMateEventPojo eventPojo) {
 
                eventName.setText(eventPojo.getEventName());
+
                 budgetTV.setText("Budget  "+eventPojo.getInitialBudget());
+
                 totalBudget= eventPojo.getInitialBudget();
             }
         });
@@ -108,9 +126,10 @@ public class MainDashBoard extends Fragment {
         expenseViewModel.expenseListLD.observe(this, new Observer<List<EventExpensePojo>>() {
             @Override
             public void onChanged(List<EventExpensePojo> eventExpensePojos) {
+
                 int totalEx = 0;
                 int remaining = 0;
-
+                 int parcent=0;
 
                 for (EventExpensePojo expensePojo : eventExpensePojos)
                 {
@@ -121,10 +140,27 @@ public class MainDashBoard extends Fragment {
                 expenseTV.setText("Total expense  "+totalEx);
                 remainingTV.setText("Remaining  "+remaining);
 
-                expenseAdapter = new ExpenseListRVAdpater(getActivity(),eventExpensePojos);
-                LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-                expenseRV.setLayoutManager(llm);
-                expenseRV.setAdapter(expenseAdapter);
+                if (eventExpensePojos.size()<=0)
+                {
+                    addExpenseCard.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+
+                    double percentage =  (( (double) totalEx / (double) totalBudget)*100.0);
+
+                    parcent = (int) percentage;
+
+                    expenseAdapter = new ExpenseListRVAdpater(getActivity(),eventExpensePojos);
+                    LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+                    expenseRV.setLayoutManager(llm);
+                    expenseRV.setAdapter(expenseAdapter);
+                    addExpenseCard.setVisibility(View.GONE);
+                    progressBar.setProgress(progressBar.getProgress()+parcent);
+                }
+
+
+
 
 
                 expenseRV.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -143,6 +179,8 @@ public class MainDashBoard extends Fragment {
                 });
             }
         });
+
+
 
     }
 

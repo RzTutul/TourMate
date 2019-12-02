@@ -9,6 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
@@ -16,21 +19,33 @@ import androidx.navigation.Navigation;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.tourmate.pojos.UserInformationPojo;
 import com.example.tourmate.viewmodels.LoginViewModel;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    private static final String TAG = MainActivity.class.getSimpleName();
     private boolean isExit = false;
+    private boolean isBack = false;
 
     private NavigationView navigationView;
     private DrawerLayout drawer;
     private View view;
+    private NavController navController;
+    public static String eventID;
+    LoginViewModel loginViewModel;
+    TextView navUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         view = findViewById(R.id.myview);
 
+        loginViewModel= ViewModelProviders.of(this).get(LoginViewModel.class);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -47,30 +63,75 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+        final BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav.setOnNavigationItemSelectedListener(navListener);
+
         View headerView = navigationView.getHeaderView(0);
-        TextView navUsername = headerView.findViewById(R.id.nav_userName);
-        navUsername.setText("Rz Tutul");
+        navUsername= headerView.findViewById(R.id.nav_userName);
+
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragmnet);
+
+        loginViewModel.stateLiveData.observe(this, new Observer<LoginViewModel.AuthenticationState>() {
+            @Override
+            public void onChanged(LoginViewModel.AuthenticationState authenticationState) {
+                switch (authenticationState)
+                {
+                    case AUTHENTICATED:
+
+                        loginViewModel.getUserInfo();
+
+                        loginViewModel.userInfoLD.observe(MainActivity.this, new Observer<UserInformationPojo>() {
+                            @Override
+                            public void onChanged(UserInformationPojo userInformationPojo) {
+
+                                navUsername.setText(userInformationPojo.getUserName());
+                            }
+                        });
+
+
+                        break;
+                    case UNAUTHENTICATED:
+                        break;
+                }
+            }
+        });
+
+
+        navController = Navigation.findNavController(this, R.id.nav_host_fragmnet);
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
                 switch (destination.getId()) {
                     case R.id.eventListFragment:
                         isExit = true;
+                        bottomNav.setVisibility(View.GONE);
                         break;
 
-                        case R.id.loginFragment:
+                    case R.id.loginFragment:
                         isExit = true;
+                        bottomNav.setVisibility(View.GONE);
                         break;
 
+                    case R.id.mainDashBoard:
+                        bottomNav.getMenu().findItem(R.id.botton_nav_expense).setChecked(true);
+                        bottomNav.setVisibility(View.VISIBLE);
+                        isBack = true;
+                        isExit = false;
+                        break;
+                    case R.id.momentGallary:
+                        bottomNav.setVisibility(View.VISIBLE);
+                        isBack = true;
+                        isExit = false;
+                        break;
 
                     default:
+                        bottomNav.setVisibility(View.GONE);
                         isExit = false;
                         break;
                 }
@@ -79,6 +140,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     }
+
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    final Bundle bundle = new Bundle();
+                    bundle.putString("id", eventID);
+
+                    switch (item.getItemId()) {
+                        case R.id.botton_nav_expense:
+                            Navigation.findNavController(MainActivity.this, R.id.nav_host_fragmnet).navigate(R.id.mainDashBoard, bundle);
+
+                            break;
+                        case R.id.bottom_nav_moment:
+                            Navigation.findNavController(MainActivity.this, R.id.nav_host_fragmnet).navigate(R.id.momentGallary, bundle);
+                            break;
+                        case R.id.bottom_nav_event:
+                            Navigation.findNavController(MainActivity.this, R.id.nav_host_fragmnet).navigate(R.id.eventListFragment);
+                            break;
+
+                        default:
+                            break;
+                    }
+
+                    return true;
+                }
+            };
+
 
     @Override
     public void onBackPressed() {
@@ -103,15 +193,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         });
                 AlertDialog alert = builder.create();
                 alert.show();
+            } else if (isBack) {
+                Navigation.findNavController(MainActivity.this, R.id.nav_host_fragmnet).navigate(R.id.eventListFragment);
             } else {
                 super.onBackPressed();
             }
-
-
         }
 
 
     }
+
+
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -124,6 +216,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_event:
                 Navigation.findNavController(this, R.id.nav_host_fragmnet)
                         .navigate(R.id.eventListFragment);
+
                 break;
 
             case R.id.nav_weather:
@@ -143,43 +236,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Navigation.findNavController(this, R.id.nav_host_fragmnet)
                         .navigate(R.id.loginFragment);
                 break;
-
-
+            default:
+                break;
 
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-}
-
-    /*@Override
-    public void onBackPressed() {
-
-    *//* count = getSupportFragmentManager().getBackStackEntryCount();
-        if (count ==0) {
-            super.onBackPressed();
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Are you sure you want to exit?")
-                    .setCancelable(false)
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            MainActivity.this.finish();
-                        }
-                    })
-                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
-            AlertDialog alert = builder.create();
-            alert.show();
-        } else {
-            getSupportFragmentManager().popBackStack();
-        }
-
-        *//*
-
-    }
 
 }
-*/

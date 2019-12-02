@@ -3,6 +3,7 @@ package com.example.tourmate;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -23,6 +25,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -83,7 +88,7 @@ public class MomentGallary extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         takePicBtn = view.findViewById(R.id.takeaPicbtn);
         momentPicRV = view.findViewById(R.id.momentPicRV);
@@ -92,9 +97,42 @@ public class MomentGallary extends Fragment {
         takePicBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (checkStoragePermission()){
-                    dispatchCameraIntent();
-                }
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Choice Option !");
+                LayoutInflater inflater = LayoutInflater.from(getActivity());
+                View view1 = inflater.inflate(R.layout.pick_image_dilog,null);
+                builder.setView(view1);
+
+
+                CardView cam = view1.findViewById(R.id.cameraid);
+                CardView gallery  = view1.findViewById(R.id.galleryid);
+
+                final   AlertDialog dialog = builder.create();
+                dialog.show();
+                cam.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (checkStoragePermission()){
+                            dispatchCameraIntent();
+                        }
+                        dialog.dismiss();
+
+                    }
+                });
+
+                gallery.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Toast.makeText(getActivity(), "gallary", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                });
+
+
+
+
             }
         });
 

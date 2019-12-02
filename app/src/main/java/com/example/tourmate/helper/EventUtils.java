@@ -47,4 +47,11 @@ public class EventUtils {
         Date date = new Date();
         return dateFormat.format(date);
     }
+
+    public static String getFormattedDate(long dt){
+        Date date = new Date(dt * 1000);
+        return new SimpleDateFormat("dd/MM/yyyy hh:mm aa")
+                .format(date);
+    }
+
 }

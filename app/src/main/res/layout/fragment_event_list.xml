@@ -14,10 +14,49 @@
         android:layout_height="wrap_content"
         />
 
+    <androidx.cardview.widget.CardView
+        android:visibility="gone"
+        android:id="@+id/addEventCardView"
+        android:layout_margin="6dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        >
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <TextView
+                android:layout_gravity="center"
+                android:textSize="30sp"
+                android:text="No Event Found!"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+                <TextView
+                android:layout_gravity="center"
+                android:textSize="25sp"
+                android:text="Tap+ Add one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/eventRV"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
 

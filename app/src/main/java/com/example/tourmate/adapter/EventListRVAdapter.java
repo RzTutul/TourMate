@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.tourmate.MainActivity;
 import com.example.tourmate.R;
 import com.example.tourmate.helper.EventUtils;
 import com.example.tourmate.pojos.EventExpensePojo;
@@ -26,6 +27,7 @@ import com.example.tourmate.viewmodels.ExpenseViewModel;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -35,6 +37,8 @@ public class EventListRVAdapter extends RecyclerView.Adapter<EventListRVAdapter.
     private EventViewModel eventViewModel = new EventViewModel();
 
     public EventListRVAdapter(Context context,List<TourMateEventPojo> eventPojos) {
+
+        Collections.reverse(eventPojos);
         this.eventPojos = eventPojos;
         this.context = context;
 
@@ -110,9 +114,22 @@ public class EventListRVAdapter extends RecyclerView.Adapter<EventListRVAdapter.
 
                                 break;
                             case R.id.deleteMenu:
-                                eventViewModel.DeleteEvent(eventPojo);
-                                Navigation.findNavController(holder.itemView).navigate(R.id.eventListFragment
-                                );
+                                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                                builder.setTitle("Delete this entire Event?");
+                                builder.setMessage("Remember: Once Delete of the event it cannot be undone!");
+                                builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        eventViewModel.DeleteEvent(eventPojo);
+                                        Navigation.findNavController(holder.itemView).navigate(R.id.eventListFragment
+                                        );
+                                    }
+                                });
+                                builder.setNegativeButton("Cancel",null);
+
+                                AlertDialog alertDialog = builder.create();
+                                alertDialog.show();
+
                                 break;
 
                         }
@@ -134,7 +151,8 @@ public class EventListRVAdapter extends RecyclerView.Adapter<EventListRVAdapter.
 
                 final Bundle bundle = new Bundle();
                 bundle.putString("id",eventID);
-                Navigation.findNavController(holder.itemView).navigate(R.id.eventDashBoard,bundle);
+                MainActivity.eventID = eventID;
+                Navigation.findNavController(holder.itemView).navigate(R.id.action_eventListFragment_to_mainDashBoard,bundle);
 
 
 

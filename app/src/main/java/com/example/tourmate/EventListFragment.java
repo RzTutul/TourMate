@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -30,6 +31,7 @@ import com.example.tourmate.adapter.EventListRVAdapter;
 import com.example.tourmate.pojos.TourMateEventPojo;
 import com.example.tourmate.viewmodels.EventViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -46,6 +48,7 @@ private EventListRVAdapter eventListRVAdapter;
 private FloatingActionButton addEventBtn;
 private RecyclerView eventRV;
 private ProgressBar eventProgressBar;
+private CardView addeventCard;
     public EventListFragment() {
         // Required empty public constructor
     }
@@ -95,10 +98,22 @@ private ProgressBar eventProgressBar;
         addEventBtn = view.findViewById(R.id.addEventBtn);
         eventProgressBar = view.findViewById(R.id.eventProgress);
 
+        addeventCard = view.findViewById(R.id.addEventCardView);
+
+
+
         addEventBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(getActivity(),R.id.nav_host_fragmnet).navigate(R.id.add_Event);
+                Navigation.findNavController(getActivity(),R.id.nav_host_fragmnet).navigate(R.id.action_eventListFragment_to_add_Event);
+            }
+        });
+
+        addeventCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(getActivity(),R.id.nav_host_fragmnet).navigate(R.id.action_eventListFragment_to_add_Event);
+
             }
         });
 
@@ -107,12 +122,22 @@ private ProgressBar eventProgressBar;
             @Override
             public void onChanged(List<TourMateEventPojo> tourMateEventPojos) {
 
+            int size = tourMateEventPojos.size();
+                if (size<=0) {
+                    addeventCard.setVisibility(View.VISIBLE);
+                    eventProgressBar.setVisibility(View.GONE);
 
-                eventListRVAdapter = new EventListRVAdapter(getActivity(), tourMateEventPojos);
-                LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-                eventRV.setLayoutManager(llm);
-                eventRV.setAdapter(eventListRVAdapter);
-                eventProgressBar.setVisibility(View.GONE);
+                }
+
+                else
+                {
+                    eventListRVAdapter = new EventListRVAdapter(getActivity(), tourMateEventPojos);
+                    LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+                    eventRV.setLayoutManager(llm);
+                    eventRV.setAdapter(eventListRVAdapter);
+                    eventProgressBar.setVisibility(View.GONE);
+                }
+
 
 
                 eventRV.addOnScrollListener(new RecyclerView.OnScrollListener() {

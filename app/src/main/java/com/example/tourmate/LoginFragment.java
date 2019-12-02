@@ -93,9 +93,8 @@ public class LoginFragment extends Fragment {
         registerbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = emailET.getText().toString();
-                String pass = passwordET.getText().toString();
-               loginViewModel.register(email,pass);
+              Navigation.findNavController(getActivity(),R.id.nav_host_fragmnet).navigate(R.id.action_loginFragment_to_registrationFragment);
+
             }
         });
 
