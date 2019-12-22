@@ -1,33 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="110dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="6dp"
+    app:cardElevation="5dp"
+    app:cardCornerRadius="4dp"
     android:orientation="vertical">
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
-        <TextView
-            android:id="@+id/row_forcast_temp_max"
-            android:text="Temp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-        <TextView
-            android:id="@+id/row_forcast_min"
-            android:text="city"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-           <TextView
-            android:id="@+id/row_forcast_date"
-            android:text="Date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+        android:orientation="horizontal"
+        android:weightSum="2">
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:fontFamily="@font/nikoshlight"
+                android:id="@+id/row_forcast_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="wed 4 dec" />
+
+            <ImageView
+                android:gravity="center"
+                android:id="@+id/row_forcast_image"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                tools:src="@mipmap/ic_launcher_round" />
+            <TextView
+                android:textColor="#073AEC"
+                android:fontFamily="@font/nikoshlight"
+                android:id="@+id/row_forcast_status"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Sky is Clear "/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nikoshlight"
+                    android:text="Sunrise:"
+                    android:textColor="#000" />
+
+                <TextView
+                    android:id="@+id/row_forcast_sunrise"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#D5BCBC"
+                    android:gravity="center"
+                    android:text="32"
+                    android:textColor="#fff"
+                    android:textSize="16sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nikoshlight"
+                    android:text="Sunset:  "
+                    android:textColor="#000" />
+
+                <TextView
+                    android:id="@+id/row_forcast_sunset"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#D5BCBC"
+                    android:gravity="center"
+                    android:text="32"
+                    android:textColor="#fff"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="21dp"
+                    android:fontFamily="@font/nikoshlight"
+                    android:text="Max: "
+                    android:textColor="#000" />
+
+                <TextView
+                    android:id="@+id/row_forcast_temp_max"
+                    android:layout_width="match_parent"
+
+                    android:layout_height="wrap_content"
+                    android:background="#1FC478"
+                    android:gravity="center"
+                    android:text="32"
+                    android:textColor="#fff"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textColor="#000"
+                    android:fontFamily="@font/nikoshlight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Min:  " />
+
+                <TextView
+                    android:id="@+id/row_forcast_min"
+                    android:layout_width="match_parent"
+
+                    android:layout_height="wrap_content"
+                    android:background="#C4A824"
+                    android:gravity="center"
+                    android:text="32"
+                    android:textColor="#fff"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
 
 
     </LinearLayout>

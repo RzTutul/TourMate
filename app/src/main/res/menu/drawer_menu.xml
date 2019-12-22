@@ -5,10 +5,12 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
 
+            android:icon="@drawable/ic_home_black_24dp"
+            android:id="@+id/nav_home"
             android:title="Home" />
         <item
+            android:icon="@drawable/ic_event_note_black_24dp"
             android:id="@+id/nav_event"
             android:title="Event" />
     </group>
@@ -18,13 +20,17 @@
 
             <group android:checkableBehavior="single">
             <item
+
+                android:icon="@drawable/ic_location_on_black_24dp"
                 android:id="@+id/nav_nearby"
 
                 android:title="Nearby Place" />
             <item
+                android:icon="@drawable/ic_cloud_queue_black_24dp"
                 android:id="@+id/nav_weather"
                 android:title="Weather" />
               <item
+                  android:icon="@drawable/ic_explore_black_compasicon"
                 android:id="@+id/nav_compass"
                 android:title="Compass" />
             </group>
@@ -38,19 +44,24 @@
     <item android:title="Communicate" android:checkableBehavior="single">
         <menu>
             <item
+                android:icon="@drawable/ic_share_black_24dp"
                 android:id="@+id/nav_share"
                 android:title="Share" />
             <item
+
+                android:icon="@drawable/aboutinfoicon"
                 android:id="@+id/nav_send"
-                android:title="Send" />
+                android:title="About" />
         </menu>
     </item>
      <item android:title="Privacy">
         <menu>
             <item
+                android:icon="@drawable/logouticon"
                 android:id="@+id/nav_logout"
                 android:title="Logout" />
             <item
+                android:icon="@drawable/ic_exit_to_app_black_24dp"
                 android:id="@+id/nav_exit"
                 android:title="Exit" />
         </menu>

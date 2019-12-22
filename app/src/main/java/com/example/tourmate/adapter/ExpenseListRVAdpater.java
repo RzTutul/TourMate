@@ -6,9 +6,8 @@ import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,7 +55,7 @@ public class ExpenseListRVAdpater extends RecyclerView.Adapter<ExpenseListRVAdpa
         final EventExpensePojo expensePojo = expensePojos.get(position);
 
         holder.expenseName.setText(expensePojos.get(position).getExpenseName());
-        holder.expenseAmount.setText(String.valueOf(expensePojos.get(position).getAmount()));
+        holder.expenseAmount.setText("৳ "+String.valueOf(expensePojos.get(position).getAmount()));
         holder.expenseDate.setText(expensePojos.get(position).getExpenseDateTime());
 
         holder.editbtn.setOnClickListener(new View.OnClickListener() {
@@ -85,7 +84,7 @@ public class ExpenseListRVAdpater extends RecyclerView.Adapter<ExpenseListRVAdpa
     public class ExpenseViewHolder extends RecyclerView.ViewHolder
     {
         TextView expenseName,expenseAmount,expenseDate;
-        Button editbtn,deletebtn;
+        ImageView editbtn,deletebtn;
 
         public ExpenseViewHolder(@NonNull View itemView) {
             super(itemView);

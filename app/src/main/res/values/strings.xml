@@ -7,6 +7,29 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="wether_api_key">a163a459fd8dffcbc774a76f864adb1a</string>
     <string name="forcastwether_api_key">31b114dfbba8a5d3500917b2515db196</string>
+    <string name="nearby_place_api_key">AIzaSyB3uqkrr5DuRs4_ll4wZdTjV3alhyKSPsM</string>
+    <string name="title_activity_maps">Map</string>
+
+
+    <string-array name="place_type">
+        <item>Select Place</item>
+        <item>restaurant</item>
+        <item>atm</item>
+        <item>bus_station</item>
+        <item>tourist_attraction</item>
+        <item>train_station</item>
+        <item>zoo</item>
+    </string-array>
+    <string-array name="distance">
+        <item>select distance</item>
+        <item>0.5km</item>
+        <item>1km</item>
+        <item>1.5km</item>
+        <item>2km</item>
+        <item>3km</item>
+        <item>4km</item>
+        <item>5km</item>
+    </string-array>
 
 
 </resources>

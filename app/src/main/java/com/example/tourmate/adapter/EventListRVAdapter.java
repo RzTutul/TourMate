@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -50,7 +52,8 @@ public class EventListRVAdapter extends RecyclerView.Adapter<EventListRVAdapter.
         LayoutInflater inflater = LayoutInflater.from(context);
 
         View view = inflater.inflate(R.layout.event_row,parent,false);
-
+        Animation shake = AnimationUtils.loadAnimation(context, R.anim.layout_animation);
+        view.startAnimation(shake);
         return new EventViewHolder(view);
     }
 
@@ -120,8 +123,14 @@ public class EventListRVAdapter extends RecyclerView.Adapter<EventListRVAdapter.
                                 builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        eventViewModel.DeleteEvent(eventPojo);
+
+                                        try {
+                                            eventViewModel.DeleteEvent(eventPojo);
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
                                         Navigation.findNavController(holder.itemView).navigate(R.id.eventListFragment
+
                                         );
                                     }
                                 });
@@ -152,7 +161,7 @@ public class EventListRVAdapter extends RecyclerView.Adapter<EventListRVAdapter.
                 final Bundle bundle = new Bundle();
                 bundle.putString("id",eventID);
                 MainActivity.eventID = eventID;
-                Navigation.findNavController(holder.itemView).navigate(R.id.action_eventListFragment_to_mainDashBoard,bundle);
+                Navigation.findNavController(holder.itemView).navigate(R.id.mainDashBoard,bundle);
 
 
 

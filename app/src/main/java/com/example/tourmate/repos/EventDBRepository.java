@@ -146,5 +146,13 @@ public class EventDBRepository {
     }
 
 
+    public void addMorebudget(String eventID, int amount) {
+        eventRef.child(eventID).child("initialBudget").setValue(amount).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
 
+            }
+        });
+
+    }
 }

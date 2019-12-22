@@ -1,10 +1,16 @@
 package com.example.tourmate.viewmodels;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.tourmate.pojos.UserInformationPojo;
 import com.example.tourmate.repos.FirebaseLoginRepository;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class LoginViewModel extends ViewModel {
     private FirebaseLoginRepository firebaseLoginRepository;
@@ -12,11 +18,14 @@ public class LoginViewModel extends ViewModel {
     public MutableLiveData<String> errMsg = new MutableLiveData<>();
     public MutableLiveData<UserInformationPojo> userInfoLD = new MutableLiveData<>();
 
+    public void passwordReset(String emailAddress) {
+        firebaseLoginRepository.passwordResetSendMail(emailAddress);
+    }
 
     public enum AuthenticationState
     {
         AUTHENTICATED,
-        UNAUTHENTICATED,
+        UNAUTHENTICATED
     }
     public LoginViewModel() {
         stateLiveData = new MutableLiveData<>();
@@ -36,7 +45,6 @@ public class LoginViewModel extends ViewModel {
     }
 
 
-
     public void login(String email,String pass)
     {
        stateLiveData = firebaseLoginRepository.LoginFirebaseUser(email,pass);
@@ -47,9 +55,14 @@ public class LoginViewModel extends ViewModel {
 
     }
 
-
     public void getUserInfo() {
         userInfoLD= firebaseLoginRepository.getUserInformation();
+    }
+
+    public void getLogoutUser()
+    {
+        FirebaseAuth.getInstance().signOut();
+        stateLiveData.postValue(AuthenticationState.UNAUTHENTICATED);
     }
 
 }

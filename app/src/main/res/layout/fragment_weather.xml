@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/weatherbg"
     android:orientation="vertical"
     tools:context=".WeatherFragment">
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,80 +15,227 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/lognitudeLatitudeId"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="hello"
-            />
-        <TextView
             android:id="@+id/addressID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
+            android:drawableLeft="@drawable/ic_location_on_black_24dp"
+            android:fontFamily="@font/nikoshlight"
+            android:textColor="#fff"
+            android:textSize="20sp" />
+
         <TextView
-            android:id="@+id/teprature"
+            android:id="@+id/temp_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
-
-        <Button
-            android:id="@+id/button_expand"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="expand" />
-
-        <Button
-            android:id="@+id/button_collapse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="collapse" />
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/nikoshlight"
+            android:textColor="#fff"
+            android:textSize="15sp"
+            tools:text="Mar 23 2019" />
 
         <TextView
-            android:id="@+id/text_view_state"
-            android:layout_width="wrap_content"
+            android:id="@+id/temp_time"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="State"
-            android:textColor="@android:color/black"
-            android:textSize="30sp" />
+            android:layout_marginLeft="5dp"
+            android:fontFamily="@font/nikoshlight"
+            android:textColor="#fff"
+            android:textSize="30sp"
+            tools:text="Mar 23 2019" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:orientation="horizontal">
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nikoshlight"
+                        android:text="Sunrise:"
+                        android:textColor="#fff" />
+
+                    <TextView
+                        android:id="@+id/sunrise"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#fff"
+                        tools:text="2019" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:orientation="horizontal">
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nikoshlight"
+                        android:text="Sunset:"
+                        android:textColor="#fff" />
+
+                    <TextView
+                        android:id="@+id/sunset"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#fff"
+                        tools:text="2019" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nikoshlight"
+                        android:text="Humidity:"
+                        android:textColor="#fff" />
+
+                    <TextView
+                        android:id="@+id/humidity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#fff"
+                        tools:text="40.5%" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nikoshlight"
+                        android:text="Pressure:"
+                        android:textColor="#fff" />
+
+                    <TextView
+                        android:id="@+id/pressure"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#fff"
+                        tools:text="2019" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/weatherIcon"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="25dp"
+                        tools:src="@mipmap/ic_launcher_round" />
+
+                    <TextView
+                        android:id="@+id/teprature"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:fontFamily="@font/nikoshlight"
+                        android:textColor="@android:color/black"
+                        android:textSize="30sp"
+                        tools:text="31.0" />
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/weatherStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/fontlight"
+                    android:gravity="center"
+                    android:textColor="#EBE20048"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    tools:text="Sky is Clear" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
 
     </LinearLayout>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/bottom_sheet"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:background="@android:color/holo_blue_light"
+        android:layout_height="600dp"
         app:behavior_hideable="true"
-        app:behavior_peekHeight="90dp"
-        app:layout_behavior="@string/bottom_sheet_behavior"
-        >
+        app:behavior_peekHeight="250dp"
+        app:layout_behavior="@string/bottom_sheet_behavior">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            >
+            android:orientation="vertical">
 
-            <Button
-                android:text="expand"
+            <ImageView
+                android:id="@+id/button_expand"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:layout_width="wrap_content"
+                android:src="@drawable/ic_arrow_upward_black_24dp" />
+
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                />
+                android:fontFamily="@font/nikoshlight"
+                android:gravity="center"
+                android:text="7 day weather forecast"
+                android:textColor="#000"
+                android:textSize="25sp" />
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/forcatRV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                />
+                android:layout_marginBottom="50dp" />
 
         </LinearLayout>
 
 
     </androidx.core.widget.NestedScrollView>
-
-
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

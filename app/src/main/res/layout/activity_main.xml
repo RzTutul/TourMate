@@ -10,8 +10,6 @@
     tools:openDrawer="start"
     >
 
-
-
     <RelativeLayout
         android:id="@+id/myview"
         android:layout_width="match_parent"
@@ -22,33 +20,49 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/singupbg"
             android:elevation="4dp"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_below="@+id/toolbar"
+                android:background="#FF8F01"
+                app:tabIconTint="#fff"
+                android:elevation="6dp"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+
+        <FrameLayout
+            android:layout_below="@id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
 
             <fragment
-                android:layout_below="@id/toolbar"
                 android:id="@+id/nav_host_fragmnet"
                 android:name="androidx.navigation.fragment.NavHostFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_below="@id/toolbar"
                 app:defaultNavHost="true"
                 app:navGraph="@navigation/nav_graph" />
 
+        </FrameLayout>
+
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
-               android:visibility="gone"
+
                 android:id="@+id/bottom_navigation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 app:menu="@menu/bottom_menu"
                 android:background="?android:attr/windowBackground"/>
-
-
-
 
     </RelativeLayout>
 
@@ -62,6 +76,8 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:background="#FFFFFF"
+        app:itemTextColor="#2F6286"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/drawer_menu" />
 

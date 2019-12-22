@@ -26,6 +26,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:19.1.0'
     implementation 'com.google.firebase:firebase-database:19.2.0'
     implementation 'com.google.firebase:firebase-storage:19.1.0'
+    implementation 'com.google.android.gms:play-services-maps:16.1.0'
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
     // For Kotlin use kapt instead of annotationProcessor
 
@@ -42,14 +43,22 @@ dependencies {
 
     implementation 'com.google.android.material:material:1.2.0-alpha02'
 
-
     implementation 'com.google.firebase:firebase-analytics:17.2.1'
     implementation 'com.squareup.picasso:picasso:2.71828'
+    //for navigation drawer and bottom
     implementation 'com.android.support:design:29.0.0'
     implementation 'com.android.support:appcompat-v7:29.1.0'
+    //for locaiton
     implementation 'com.google.android.gms:play-services-location:17.0.0'
+    implementation 'com.google.android.gms:play-services-places:17.0.0'
+    //for api api call
     implementation 'com.squareup.retrofit2:retrofit:2.6.2'
     implementation 'com.squareup.retrofit2:retrofit:2.6.2'
     implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
+
+    //For image Slider
+    implementation 'com.github.smarteist:autoimageslider:1.3.2-appcompat'
+
+
 }
 apply plugin: 'com.google.gms.google-services'

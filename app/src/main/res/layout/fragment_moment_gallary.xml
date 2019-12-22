@@ -14,12 +14,46 @@
         android:layout_marginBottom="60dp"
         />
 
-    <ProgressBar
-        android:id="@+id/uploadingProgress"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_centerInParent="true" />
+
+    <androidx.cardview.widget.CardView
+        android:visibility="gone"
+        android:id="@+id/addPictureCard"
+        android:layout_margin="6dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        >
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <TextView
+                android:fontFamily="@font/nikoshlight"
+                android:layout_gravity="center"
+                android:textSize="25sp"
+                android:text="No Picture Found!"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <TextView
+                android:fontFamily="@font/fontlight"
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:text="Tap + upload one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -30,7 +64,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:layout_margin="50dp"
+        android:layout_marginBottom="80dp"
+        android:layout_marginRight="20dp"
+        android:backgroundTint="#337E4C"
 
         android:src="@android:drawable/ic_menu_camera" />
 

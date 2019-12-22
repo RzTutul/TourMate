@@ -53,6 +53,12 @@ public class EventViewModel extends ViewModel {
        eventDetailsLD = eventDBRepository.getEventDetialbyEventID(eventID);
 
     }
+     public void addMorebudget(String eventID,int amount)
+    {
+    eventDBRepository.addMorebudget(eventID,amount);
+
+    }
+
 
 
 

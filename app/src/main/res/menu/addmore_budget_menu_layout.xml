@@ -3,10 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/addEventMenu"
-        android:title="AddEvent"
+        android:id="@+id/addmoreBudget_menu"
+        android:title="Add more budget"
         android:icon="@drawable/ic_add_black_24dp"
-        app:showAsAction="always"
         />
 
 </menu>

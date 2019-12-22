@@ -1,7 +1,10 @@
 package com.example.tourmate;
 
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,11 +19,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -31,10 +30,8 @@ import com.example.tourmate.adapter.EventListRVAdapter;
 import com.example.tourmate.pojos.TourMateEventPojo;
 import com.example.tourmate.viewmodels.EventViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
 
-import java.util.Collection;
-import java.util.Collections;
+
 import java.util.List;
 
 
@@ -56,31 +53,13 @@ private CardView addeventCard;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+
         ((AppCompatActivity)getActivity()).getSupportActionBar().show();
         getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 
     }
 
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-
-        inflater.inflate(R.menu.event_menu_layout,menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        switch (item.getItemId())
-        {
-            case R.id.addEventMenu:
-                Navigation.findNavController(getActivity(),R.id.nav_host_fragmnet).navigate(R.id.add_Event);
-                break;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -93,6 +72,7 @@ private CardView addeventCard;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
         super.onViewCreated(view, savedInstanceState);
         eventRV = view.findViewById(R.id.eventRV);
         addEventBtn = view.findViewById(R.id.addEventBtn);
@@ -100,7 +80,12 @@ private CardView addeventCard;
 
         addeventCard = view.findViewById(R.id.addEventCardView);
 
+        if (InternetConnection.checkConnection(getActivity())) {
+            // Internet Available...
+        } else {
+            // Internet Not Available...
 
+        }
 
         addEventBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,6 +141,30 @@ private CardView addeventCard;
                 });
             }
         });
+    }
+
+    public static class InternetConnection {
+
+        /** CHECK WHETHER INTERNET CONNECTION IS AVAILABLE OR NOT */
+        public static boolean checkConnection(Context context)
+        {
+            final ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+            NetworkInfo activeNetworkInfo = connMgr.getActiveNetworkInfo();
+
+            if (activeNetworkInfo != null) { // connected to the internet
+              //  Toast.makeText(context, activeNetworkInfo.getTypeName(), Toast.LENGTH_SHORT).show();
+
+                if (activeNetworkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
+                    // connected to wifi
+                    return true;
+                } else if (activeNetworkInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
+                    // connected to the mobile provider's data plan
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 
 }

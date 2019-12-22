@@ -22,7 +22,7 @@ public class WeatherRepository {
 
     public MutableLiveData<CurrentWeatherResponseBody> getCurrentWeatherFromRepos(Location location, String unit, String apiKey)
     {
-        WeatherServiceApi serviceApi = RetrofitClient.getClient()
+        WeatherServiceApi serviceApi = RetrofitClient.getClientForWeather()
                         .create(WeatherServiceApi.class);
 
         String endUrl = String.format("data/2.5/weather?lat=%f&lon=%f&units=%s&appid=%s",
@@ -56,7 +56,7 @@ public class WeatherRepository {
     public MutableLiveData<ForcastWeatherResponsBody> getForcastweather(Location location,String unit,String apikey)
     {
         WeatherServiceApi serviceApi =
-                RetrofitClient.getClient()
+                RetrofitClient.getClientForWeather()
                         .create(WeatherServiceApi.class);
 
         String endUrl = String.format("data/2.5/forecast/daily?lat=%f&lon=%f&cnt=7&units=%s&appid=%s",

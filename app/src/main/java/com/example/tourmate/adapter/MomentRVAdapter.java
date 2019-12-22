@@ -2,6 +2,7 @@ package com.example.tourmate.adapter;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,8 @@ public class MomentRVAdapter extends RecyclerView.Adapter<MomentRVAdapter.Moment
     private Context context;
     private List<MomentPojo> momentPojos;
     private MomentViewModel momentViewModel = new MomentViewModel();
+    private AlertDialog dialog;
+
 
 
     public MomentRVAdapter(Context context, List<MomentPojo> momentPojos) {
@@ -51,7 +54,7 @@ public class MomentRVAdapter extends RecyclerView.Adapter<MomentRVAdapter.Moment
 
                 final MomentPojo momentPojo = momentPojos.get(position);
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                final AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("Image");
                 LayoutInflater inflater = LayoutInflater.from(context);
                 View view =inflater.inflate(R.layout.single_image_dialog,null);
@@ -59,21 +62,38 @@ public class MomentRVAdapter extends RecyclerView.Adapter<MomentRVAdapter.Moment
                 builder.setView(view);
 
                 ImageView image = view.findViewById(R.id.imageView);
-                Button deletebtn = view.findViewById(R.id.deleteImagebtn);
-                Button donwloadbtn= view.findViewById(R.id.downlaodbtn);
+                ImageView deletebtn = view.findViewById(R.id.deleteImagebtn);
+                ImageView donwloadbtn= view.findViewById(R.id.downlaodbtn);
 
                 Picasso.get().load(momentPojos.get(position).getDownloadUrl()).fit().into(image);
 
-                final AlertDialog dialog = builder.create();
+               dialog = builder.create();
                 dialog.show();
 
                 deletebtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        momentViewModel.deleteImage(momentPojo);
-                        Toast.makeText(context, "Deleted!", Toast.LENGTH_SHORT).show();
+
+                        AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
+                        builder1.setTitle("Do you want delete this Picture?");
+                        builder1.setIcon(R.drawable.ic_delete_black_24dp);
+
+
+                        builder1.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                momentViewModel.deleteImage(momentPojo);
+                                Toast.makeText(context, "Deleted!", Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+                        builder1.setNegativeButton("No",null);
+
+                     AlertDialog dialog1 = builder1.create();
+                        dialog1.show();
 
                         dialog.dismiss();
+
                     }
                 });
 

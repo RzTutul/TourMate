@@ -8,96 +8,234 @@
     tools:context=".MainDashBoard">
 
 
-    <ProgressBar
-        android:progressDrawable="@android:drawable/progress_horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:max="100"
-        />
-
-
     <TextView
-        android:layout_below="@+id/progressBar"
+        android:fontFamily="@font/fontlight"
+        android:textColor="#000"
         android:id="@+id/eventNameTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="Tour Name"
         android:gravity="center"
-        android:textSize="30dp"
-        />
+        android:textSize="25dp"
+        tools:text="Tour Name" />
 
-
-
-    <TextView
-        android:layout_below="@+id/eventNameTV"
-
-        android:id="@+id/budgetTV"
+    <RelativeLayout
+        android:id="@+id/progressCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        tools:text="Budget : 10000" />
+        android:layout_below="@id/eventNameTV">
 
-    <TextView
-        android:layout_below="@+id/budgetTV"
-        android:id="@+id/expenseTV"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-       tools:text="Expense : 10000" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="3">
 
-    <TextView
-        android:layout_below="@+id/expenseTV"
-        android:id="@+id/remainingTV"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        tools:text="Remaining : 10000" />
+            <LinearLayout
+                android:id="@+id/addMoreBudgetLL"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <RelativeLayout
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="130dp"
+                    android:layout_alignParentLeft="true"
+                    >
+
+                    <ProgressBar
+                        android:id="@+id/budgetProgress"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:indeterminate="false"
+                        android:progressDrawable="@drawable/circular"
+                        />
+
+
+                    <TextView
+                        android:fontFamily="@font/nikoshlight"
+                        android:id="@+id/budgetText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="32dp"
+                        android:gravity="center"
+                        android:text="Budget"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textStyle="italic" />
+
+                    <TextView
+                        android:fontFamily="@font/fontlight"
+                        android:id="@+id/budgetTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/budgetText"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:text="5454564"
+                        android:textColor="@color/colorPrimaryDark"
+                        />
+
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="130dp"
+                    android:layout_centerHorizontal="true">
+
+                    <ProgressBar
+                        android:id="@+id/expenseprogressBar"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:indeterminate="false"
+                        android:max="100"
+                        android:progressDrawable="@drawable/circular"
+                        android:secondaryProgress="0" />
+
+                    <TextView
+                        android:fontFamily="@font/nikoshlight"
+                        android:id="@+id/expenseText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="32dp"
+                        android:gravity="center"
+                        android:text="Expense"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/colorPrimaryDark"
+
+                        android:textStyle="italic" />
+
+                    <TextView
+                        android:fontFamily="@font/fontlight"
+                        android:id="@+id/expenseTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/expenseText"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:text="5454564"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorPrimaryDark"
+                         />
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="130dp"
+                    android:layout_alignParentRight="true">
+
+                    <ProgressBar
+                        android:id="@+id/balancecircularProgressbar"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:indeterminate="false"
+                        android:max="100"
+                        android:progress="0"
+                        android:progressDrawable="@drawable/circular"
+                         />
+
+
+                    <TextView
+                        android:fontFamily="@font/nikoshlight"
+                        android:id="@+id/remainingText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="32dp"
+                        android:gravity="center"
+                        android:text="Balance"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textStyle="italic" />
+
+                    <TextView
+                        android:fontFamily="@font/fontlight"
+
+                        android:id="@+id/remainingTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/remainingText"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:text="5454564"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorPrimaryDark"
+
+                        />
+
+
+                </RelativeLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
     <View
         android:id="@+id/view"
-        android:layout_below="@+id/remainingTV"
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="@color/colorPrimaryDark"
-        />
-
-
-
+        android:layout_height="2dp"
+        android:layout_below="@+id/progressCard"
+        android:background="@color/colorPrimaryDark" />
 
     <androidx.cardview.widget.CardView
-        android:visibility="gone"
         android:id="@+id/addEventCardView"
-        android:layout_margin="6dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="10dp"
-        android:layout_centerInParent="true"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        >
+        android:layout_centerInParent="true"
+        android:layout_margin="6dp"
+        android:visibility="gone"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp">
+
         <LinearLayout
-            android:gravity="center"
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            >
-            <TextView
-                android:layout_gravity="center"
-                android:textSize="25sp"
-                android:text="No Expense Found!"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                />
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
-                android:layout_gravity="center"
-                android:textSize="20sp"
-                android:text="Tap+ Add one"
+                android:fontFamily="@font/nikoshlight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                />
+                android:layout_gravity="center"
+                android:text="No Expense Found!"
+                android:textSize="20sp" />
+
+            <TextView
+                android:fontFamily="@font/fontlight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Tap+ Add one"
+                android:textSize="15sp" />
 
 
         </LinearLayout>
@@ -106,20 +244,20 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/expenseRV"
-        android:layout_below="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/view"
         android:layout_marginBottom="60dp"
-
         />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="60dp"
         android:id="@+id/addExpenseBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="80dp"
+        android:layout_marginRight="20dp"
         android:clickable="true"
         android:src="@android:drawable/ic_input_add" />
 

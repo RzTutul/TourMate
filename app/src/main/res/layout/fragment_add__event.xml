@@ -7,52 +7,90 @@
     tools:context=".Add_EventFragment">
 
 
+    <ImageView
+        android:layout_gravity="center"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/tourmateicon"
+        />
+
+    <TextView
+        android:textColor="#171C7A"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/fontlight"
+        android:text="Create Your Tour Event"
+        android:textSize="20sp" />
+
+    <View
+        android:layout_gravity="center"
+        android:layout_width="210dp"
+        android:layout_height="1dp"
+        android:background="#20059E"
+        />
+
     <com.google.android.material.textfield.TextInputLayout
+
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/nikoshlight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:gravity="center"
+           android:fontFamily="@font/nikoshlight"
             android:inputType="textPersonName"
             android:id="@+id/eventNameET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Event Name" />
+            android:hint="Event Name ex: Varsity Tour" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+
+        android:fontFamily="@font/nikoshlight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:inputType="text"
+            android:gravity="center"
+            android:fontFamily="@font/nikoshlight"
+            android:inputType="textPersonName"
             android:id="@+id/startLocationET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Start Location" />
+            android:hint="Start Location ex:Dhaka" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:focusable="true"
+        android:fontFamily="@font/nikoshlight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:inputType="text"
+            android:gravity="center"
+            android:fontFamily="@font/nikoshlight"
+            android:inputType="textPersonName"
             android:id="@+id/destinationET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Destination" />
+            android:hint="Destination ex: Cox's Bazar" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+
         <com.google.android.material.textfield.TextInputLayout
+
+            android:focusable="true"
+            android:fontFamily="@font/nikoshlight"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:gravity="center"
+                android:fontFamily="@font/nikoshlight"
                 android:focusable="false"
                 android:inputType="text"
                 android:id="@+id/departureDateET"
@@ -61,7 +99,6 @@
                 android:hint="Departure date" />
         </com.google.android.material.textfield.TextInputLayout>
 
-    </FrameLayout>
 
 
 
@@ -69,25 +106,36 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
+
+        android:focusable="true"
+        android:fontFamily="@font/nikoshlight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
+           android:gravity="center"
+            android:fontFamily="@font/nikoshlight"
             android:id="@+id/budgetET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:hint="Budget" />
+            android:hint="Your Budget" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
+
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/nikoshlight"
+        android:background="@drawable/buttonshapegreen"
         android:id="@+id/createEventbtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Create New Event"
+        android:textColor="#fff"
         />
 
      <Button
+         android:background="@drawable/buttonshapegreen"
          android:visibility="gone"
         android:id="@+id/upateEventBtn"
         android:layout_width="match_parent"

@@ -4,18 +4,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/singupbg"
     tools:context=".RegistrationFragment">
 
 
+    <ImageView
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/tourmateicon"
+        />
+    <View
+        android:layout_gravity="center"
+        android:layout_width="140dp"
+        android:layout_height="1dp"
+        android:background="#EBE6E6"
+        />
+
+    <TextView
+        android:layout_gravity="center"
+        android:textColor="#E4E3E3"
+        android:textSize="20sp"
+        android:fontFamily="@font/nikoshlight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register with TourMate"
+        />
+
     <com.google.android.material.textfield.TextInputLayout
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:gravity="center"
+            android:fontFamily="@font/nikoshlight"
             android:id="@+id/userNameET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter name" />
+            android:hint="Enter name"
+            android:inputType="textPersonName"
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -23,10 +53,14 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:gravity="center"
+            android:fontFamily="@font/nikoshlight"
             android:id="@+id/userEmailEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter email" />
+            android:hint="Enter email"
+            android:inputType="textEmailAddress"
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -35,26 +69,79 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:gravity="center"
             android:id="@+id/userPasswordET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter password" />
+            android:fontFamily="@font/nikoshlight"
+            android:hint="Enter password"
+            android:inputType="textPersonName"
+            />
     </com.google.android.material.textfield.TextInputLayout>
+
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:inputType="textPersonName"
+            android:gravity="center"
+            android:fontFamily="@font/nikoshlight"
             android:id="@+id/userRetypePassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Retype Password" />
     </com.google.android.material.textfield.TextInputLayout>
 
+
+
     <Button
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/fontlight"
+        android:background="@drawable/button_two_angle_shape"
         android:id="@+id/button"
+        android:textColor="#fff"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Register" />
+
+    <ProgressBar
+        android:id="@+id/registerProgressBar"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        />
+
+
+    <LinearLayout
+        android:id="@+id/alredyMemberBtn"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+        <TextView
+            android:textColor="#318879"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/fontlight"
+            android:text="I'm already a member"
+            />
+
+        <View
+            android:layout_gravity="center"
+            android:layout_width="140dp"
+            android:layout_height="1dp"
+            android:background="#000"
+            />
+
+    </LinearLayout>
+
+
 </LinearLayout>

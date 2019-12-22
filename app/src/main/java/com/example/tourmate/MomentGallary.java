@@ -6,6 +6,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -42,6 +45,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import static android.app.Activity.RESULT_OK;
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 
@@ -54,13 +58,15 @@ public class MomentGallary extends Fragment {
 
     private static final int REQUEST_CAMERA_CODE = 123;
     private static final int REQUEST_STORAGE_CODE = 321;
+    private static final int GALLERY_REQUEST_CODE = 143;
     private FloatingActionButton takePicBtn;
     private String currentPhotoPath;
     private MomentViewModel momentViewModel;
     private String eventId;
     private RecyclerView momentPicRV;
     private MomentRVAdapter momentRVAdapter;
-    public static ProgressBar uploadProgressBar;
+
+    private CardView addPictureCard;
 
 
     public MomentGallary() {
@@ -92,46 +98,19 @@ public class MomentGallary extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         takePicBtn = view.findViewById(R.id.takeaPicbtn);
         momentPicRV = view.findViewById(R.id.momentPicRV);
-        uploadProgressBar = view.findViewById(R.id.uploadingProgress);
+        addPictureCard = view.findViewById(R.id.addPictureCard);
+        addPictureCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pictureUpload();
+            }
+        });
 
         takePicBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("Choice Option !");
-                LayoutInflater inflater = LayoutInflater.from(getActivity());
-                View view1 = inflater.inflate(R.layout.pick_image_dilog,null);
-                builder.setView(view1);
-
-
-                CardView cam = view1.findViewById(R.id.cameraid);
-                CardView gallery  = view1.findViewById(R.id.galleryid);
-
-                final   AlertDialog dialog = builder.create();
-                dialog.show();
-                cam.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (checkStoragePermission()){
-                            dispatchCameraIntent();
-                        }
-                        dialog.dismiss();
-
-                    }
-                });
-
-                gallery.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        Toast.makeText(getActivity(), "gallary", Toast.LENGTH_SHORT).show();
-                        dialog.dismiss();
-                    }
-                });
-
-
-
+                pictureUpload();
 
             }
         });
@@ -139,18 +118,27 @@ public class MomentGallary extends Fragment {
         momentViewModel.momentsLD.observe(this, new Observer<List<MomentPojo>>() {
             @Override
             public void onChanged(List<MomentPojo> momentPojos) {
-                momentRVAdapter = new MomentRVAdapter(getActivity(), momentPojos);
-                GridLayoutManager glm = new GridLayoutManager(getActivity(), 2);
-                momentPicRV.setLayoutManager(glm);
 
-                momentPicRV.setHasFixedSize(true);
-                momentPicRV.setItemViewCacheSize(20);
-                momentPicRV.setDrawingCacheEnabled(true);
-                momentPicRV.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
-                momentPicRV.setAdapter(momentRVAdapter);
+                if (momentPojos.isEmpty())
+                {
+                    addPictureCard.setVisibility(View.VISIBLE);
+                    momentPicRV.setVisibility(View.GONE);
+                }
+                else
+                {
 
+                    momentRVAdapter = new MomentRVAdapter(getActivity(), momentPojos);
+                    GridLayoutManager glm = new GridLayoutManager(getActivity(), 2);
+                    momentPicRV.setLayoutManager(glm);
+                    momentPicRV.setHasFixedSize(true);
+                    momentPicRV.setItemViewCacheSize(20);
+                    momentPicRV.setDrawingCacheEnabled(true);
+                    momentPicRV.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+                    momentPicRV.setAdapter(momentRVAdapter);
+                    addPictureCard.setVisibility(View.GONE);
+                    momentPicRV.setVisibility(View.VISIBLE);
 
-                uploadProgressBar.setVisibility(View.GONE);
+                }
                 momentPicRV.addOnScrollListener(new RecyclerView.OnScrollListener() {
                     @Override
                     public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
@@ -167,10 +155,51 @@ public class MomentGallary extends Fragment {
                 });
 
 
+
             }
         });
 
     }
+
+    private void pictureUpload() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Choice Option !");
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        View view1 = inflater.inflate(R.layout.pick_image_dilog,null);
+        builder.setView(view1);
+
+
+        CardView cam = view1.findViewById(R.id.cameraid);
+        CardView gallery  = view1.findViewById(R.id.galleryid);
+
+        final   AlertDialog dialog = builder.create();
+        dialog.show();
+        cam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkStoragePermission()){
+                    dispatchCameraIntent();
+                }
+                dialog.dismiss();
+
+            }
+        });
+
+        gallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (checkStoragePermission()) {
+                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(Intent.createChooser(intent, "Select Picture"), GALLERY_REQUEST_CODE);
+                }
+                dialog.dismiss();
+
+            }
+        });
+    }
+
 
     private boolean checkStoragePermission(){
         String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -236,10 +265,23 @@ public class MomentGallary extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CAMERA_CODE &&
-                resultCode == Activity.RESULT_OK){
+                resultCode == RESULT_OK){
             Log.e(TAG, "onActivityResult: "+currentPhotoPath);
             File file = new File(currentPhotoPath);
            momentViewModel.uploadImageToFirebaseStorage(getActivity(),file, eventId);
+            addPictureCard.setVisibility(View.GONE);
+        }
+
+        else if  (requestCode == GALLERY_REQUEST_CODE && resultCode == RESULT_OK) {
+            String[] projection = {MediaStore.Images.Media.DATA};
+            Cursor cursor = getActivity().getContentResolver().query(data.getData(), projection, null, null, null);
+            cursor.moveToFirst();
+            int index = cursor.getColumnIndex(projection[0]);
+            currentPhotoPath = cursor.getString(index);
+            File file = new File(currentPhotoPath);
+            momentViewModel.uploadImageToFirebaseStorage(getActivity(),file, eventId);
+            addPictureCard.setVisibility(View.GONE);
+
         }
     }
 

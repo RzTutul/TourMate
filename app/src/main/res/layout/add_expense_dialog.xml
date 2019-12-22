@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="200dp"
     android:orientation="vertical">
-
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/expenseNameET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="expense name" />
+            android:fontFamily="@font/nikoshlight"
+            android:hint="Expense name"
+            android:inputType="textPersonName" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -22,12 +24,40 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/expenseAmountET"
-            android:inputType="number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Amount" />
+            android:fontFamily="@font/nikoshlight"
+            android:hint="Amount"
+            android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <LinearLayout
+        android:layout_marginBottom="5dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <Button
+            android:id="@+id/cancelBtn"
+            android:fontFamily="@font/nikoshlight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_shape"
+            android:text="Cancel"
+            android:textColor="#fff" />
+
+        <Button
+            android:id="@+id/addbtn"
+            android:fontFamily="@font/nikoshlight"
+            android:layout_marginLeft="15dp"
+            android:textColor="#fff"
+            android:text="Add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_shape"
+            />
+    </LinearLayout>
 
 
 </LinearLayout>

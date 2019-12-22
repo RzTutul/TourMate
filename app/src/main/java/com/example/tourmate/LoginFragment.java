@@ -1,10 +1,13 @@
 package com.example.tourmate;
 
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -15,8 +18,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.tourmate.viewmodels.LoginViewModel;
@@ -28,9 +35,13 @@ import com.example.tourmate.viewmodels.LoginViewModel;
 public class LoginFragment extends Fragment {
 
     private EditText emailET,passwordET;
-    private Button loginbtn,registerbtn;
+    private Button loginbtn;
+    private LinearLayout registerbtn,forgotPassword;
     private TextView showError;
     private LoginViewModel loginViewModel;
+    public static ProgressBar loginProgressBar;
+    public static Context context;
+
 
 
 
@@ -58,6 +69,7 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        context = getActivity();
 
         emailET = view.findViewById(R.id.inputEmail);
         passwordET = view.findViewById(R.id.inputPassword);
@@ -66,6 +78,15 @@ public class LoginFragment extends Fragment {
 
         loginbtn = view.findViewById(R.id.loginbtn);
         registerbtn = view.findViewById(R.id.registrationBtn);
+        forgotPassword = view.findViewById(R.id.forgotPassword);
+        loginProgressBar = view.findViewById(R.id.loginProgressbar);
+
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showEnterEmailDialog();
+            }
+        });
 
 
         loginbtn.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +114,8 @@ public class LoginFragment extends Fragment {
         registerbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Animation shake = AnimationUtils.loadAnimation(context, R.anim.shake);
+                v.startAnimation(shake);
               Navigation.findNavController(getActivity(),R.id.nav_host_fragmnet).navigate(R.id.action_loginFragment_to_registrationFragment);
 
             }
@@ -107,7 +130,7 @@ public class LoginFragment extends Fragment {
                 switch (authenticationState)
                 {
                     case AUTHENTICATED:
-                        Navigation.findNavController(view).navigate(R.id.eventListFragment);
+                        Navigation.findNavController(getActivity(),R.id.nav_host_fragmnet).navigate(R.id.splashScreen);
                         break;
                     case UNAUTHENTICATED:
                         break;
@@ -126,6 +149,43 @@ public class LoginFragment extends Fragment {
 
     }
 
+    private void showEnterEmailDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Password Reset!");
+
+        LayoutInflater  inflater = LayoutInflater.from(getActivity());
+        View view = inflater.inflate(R.layout.password_reset_dialog,null);
+
+        builder.setView(view);
+
+
+        final EditText emailET = view.findViewById(R.id.emailAddress);
+
+
+
+        builder.setPositiveButton("Send", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                String emailAddress =emailET.getText().toString();
+
+                if (emailAddress.isEmpty())
+                {
+                    emailET.setError("Enter your email!");
+                }
+                else
+                {
+                    loginViewModel.passwordReset(emailAddress);
+                    dialog.dismiss();
+                }
+
+            }
+        });
+        builder.setNegativeButton("Cancel",null);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
 
 
 }

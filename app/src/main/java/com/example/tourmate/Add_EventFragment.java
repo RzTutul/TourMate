@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 
@@ -34,7 +35,7 @@ public class Add_EventFragment extends Fragment {
 
     private Button createEvnBtn,updateEventBtn;
     private TextInputEditText eventNameET,startLocationET,departureDateET,destinationET,budgetET;
-    private String departureDate;
+    private String departureDate = "";
     private EventViewModel eventViewModel;
     private String eventID;
 
@@ -43,6 +44,12 @@ public class Add_EventFragment extends Fragment {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ///Move layouts up when soft keyboard is shown
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -101,10 +108,36 @@ public class Add_EventFragment extends Fragment {
                 String destination = destinationET.getText().toString();
                 String budget = budgetET.getText().toString();
 
-                TourMateEventPojo tourMateEventPojo = new TourMateEventPojo(null,eventName,startLocation,destination,Integer.parseInt(budget),departureDate, EventUtils.getDateWithTime());
-                eventViewModel.SaveEvent(tourMateEventPojo);
+                if (eventName.isEmpty())
+                {
+                    eventNameET.setError("Provide event name!");
+                }
+                 else if (startLocation.isEmpty())
+                {
+                    startLocationET.setError("Provide start location!");
+                }
+                 else if (destination.isEmpty())
+                {
+                    destinationET.setError("Provide destination location!");
+                }
+                 else if (budget.isEmpty())
+                {
+                    budgetET.setError("Provide budget amount!");
+                }
+                 else if (departureDate.isEmpty())
+                {
+                    departureDateET.setError("Select Date!");
+                }
 
-                Navigation.findNavController(view).navigate(R.id.eventListFragment);
+                 else
+                {
+                    TourMateEventPojo tourMateEventPojo = new TourMateEventPojo(null,eventName,startLocation,destination,Integer.parseInt(budget),departureDate, EventUtils.getDateWithTime());
+                    eventViewModel.SaveEvent(tourMateEventPojo);
+                    Navigation.findNavController(view).navigate(R.id.eventListFragment);
+
+                }
+
+
 
             }
         });
@@ -155,7 +188,7 @@ public class Add_EventFragment extends Fragment {
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
             Calendar calendar = Calendar.getInstance();
             calendar.set(year, month, dayOfMonth);
-            departureDate = new SimpleDateFormat("dd/MM/yyyy")
+            departureDate = new SimpleDateFormat("dd.MM.yyyy EEE")
                     .format(calendar.getTime());
             departureDateET.setText(departureDate);
 

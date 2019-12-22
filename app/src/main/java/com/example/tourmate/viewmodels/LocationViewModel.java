@@ -9,6 +9,9 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
@@ -38,4 +41,25 @@ public class LocationViewModel extends AndroidViewModel {
     }
 
 
+    public MutableLiveData<Location> getLocationUpdate(){
+        LocationCallback callback = new LocationCallback(){
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                for (Location location : locationResult.getLocations()){
+                    if (location != null){
+                        locationLD.postValue(location);
+                    }
+                }
+            }
+        };
+
+        LocationRequest request = LocationRequest.create();
+        request.setInterval(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        request.setInterval(5000L);
+        request.setFastestInterval(2000L);
+        request.setNumUpdates(1);
+
+        providerClient.requestLocationUpdates(request, callback, null);
+        return locationLD;
+    }
 }

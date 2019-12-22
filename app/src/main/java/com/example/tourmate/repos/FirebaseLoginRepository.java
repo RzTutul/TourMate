@@ -1,11 +1,16 @@
 package com.example.tourmate.repos;
 
+import android.content.Context;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 
+import com.example.tourmate.LoginFragment;
+import com.example.tourmate.RegistrationFragment;
 import com.example.tourmate.pojos.TourMateEventPojo;
 import com.example.tourmate.pojos.UserInformationPojo;
 import com.example.tourmate.viewmodels.LoginViewModel;
@@ -50,10 +55,11 @@ public class FirebaseLoginRepository {
     }
 
     public MutableLiveData<LoginViewModel.AuthenticationState> LoginFirebaseUser(String email, String password) {
+        LoginFragment.loginProgressBar.setVisibility(View.VISIBLE);
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-
+                LoginFragment.loginProgressBar.setVisibility(View.GONE);
                 firebaseUser = firebaseAuth.getCurrentUser();
                 stateLiveData.postValue(LoginViewModel.AuthenticationState.AUTHENTICATED);
 
@@ -72,6 +78,8 @@ public class FirebaseLoginRepository {
     }
 
     public MutableLiveData<LoginViewModel.AuthenticationState> RegisterFireBaseUser(final UserInformationPojo userInformationPojo) {
+
+        RegistrationFragment.registerProgressBar.setVisibility(View.VISIBLE);
         firebaseAuth.createUserWithEmailAndPassword(userInformationPojo.getUserEmail(), userInformationPojo.getUserPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -91,11 +99,14 @@ public class FirebaseLoginRepository {
                     userInfo.setValue(userInformationPojo).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-
+                            RegistrationFragment.registerProgressBar.setVisibility(View.GONE);
                         }
                     });
-
-
+                }
+                else {
+                    Toast.makeText(LoginFragment.context, "Register Fail", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginFragment.context, "Check your Internet Connection!", Toast.LENGTH_LONG).show();
+                    RegistrationFragment.registerProgressBar.setVisibility(View.GONE);
                 }
 
 
@@ -106,7 +117,6 @@ public class FirebaseLoginRepository {
                 stateLiveData.postValue(LoginViewModel.AuthenticationState.UNAUTHENTICATED);
                 errMsg.postValue(e.getLocalizedMessage());
 
-
             }
         });
 
@@ -116,6 +126,7 @@ public class FirebaseLoginRepository {
     public FirebaseUser getFirebaseUser() {
         return firebaseUser;
     }
+
 
     public MutableLiveData<String> getErrMsg() {
         return errMsg;
@@ -143,5 +154,32 @@ public class FirebaseLoginRepository {
         });
 
         return userInfoLD;
+    }
+
+    public void passwordResetSendMail(String emailAddress) {
+        LoginFragment.loginProgressBar.setVisibility(View.VISIBLE);
+
+        firebaseAuth.sendPasswordResetEmail(emailAddress).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+
+                if (task.isSuccessful())
+                {
+                    LoginFragment.loginProgressBar.setVisibility(View.GONE);
+                    Toast.makeText(LoginFragment.context, "Email Sent! Check it!", Toast.LENGTH_LONG).show();
+
+                }
+                else
+                {
+                   Toast.makeText(LoginFragment.context, "Email doesn't exist!", Toast.LENGTH_SHORT).show();
+                    LoginFragment.loginProgressBar.setVisibility(View.GONE);
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
     }
 }

@@ -1,7 +1,6 @@
 package com.example.tourmate;
 
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;

@@ -5,7 +5,7 @@
         android:title="Details"
         />
       <item android:id="@+id/editMenu"
-        android:title="Edit"
+        android:title="Update"
         />
       <item android:id="@+id/deleteMenu"
         android:title="Delete"

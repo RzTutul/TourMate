@@ -1,5 +1,6 @@
 package com.example.tourmate.viewmodels;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -43,8 +44,11 @@ public class MomentViewModel extends ViewModel {
         final StorageReference imageRef = rootRef.child("EventImages/" + fileUri.getLastPathSegment());
         UploadTask uploadTask = imageRef.putFile(fileUri);
 */
-        MomentGallary.uploadProgressBar.setVisibility(View.VISIBLE);
-        Toast.makeText(context, "Wait Uploading", Toast.LENGTH_SHORT).show();
+        //MomentGallary.uploadProgressBar.setVisibility(View.VISIBLE);
+      final ProgressDialog pd = new ProgressDialog(context);
+        pd.setMessage("Wait Image Uploading...");
+        pd.show();
+
 
         StorageReference rootRef = FirebaseStorage.getInstance().getReference();
         Uri fileUri = Uri.fromFile(file);
@@ -83,7 +87,8 @@ public class MomentViewModel extends ViewModel {
             public void onComplete(@NonNull Task<Uri> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(context, "Uploaded", Toast.LENGTH_SHORT).show();
-                    MomentGallary.uploadProgressBar.setVisibility(View.GONE);
+
+                    pd.dismiss();
                     Uri downloadUri = task.getResult();
                     MomentPojo moments = new MomentPojo(null, eventId, downloadUri.toString());
                     momentRepository.addNewMoment(moments);
