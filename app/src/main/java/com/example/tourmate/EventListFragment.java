@@ -42,7 +42,7 @@ public class EventListFragment extends Fragment {
 
 private EventViewModel eventViewModel;
 private EventListRVAdapter eventListRVAdapter;
-private FloatingActionButton addEventBtn;
+
 private RecyclerView eventRV;
 private ProgressBar eventProgressBar;
 private CardView addeventCard;
@@ -75,7 +75,7 @@ private CardView addeventCard;
 
         super.onViewCreated(view, savedInstanceState);
         eventRV = view.findViewById(R.id.eventRV);
-        addEventBtn = view.findViewById(R.id.addEventBtn);
+
         eventProgressBar = view.findViewById(R.id.eventProgress);
 
         addeventCard = view.findViewById(R.id.addEventCardView);
@@ -87,12 +87,6 @@ private CardView addeventCard;
 
         }
 
-        addEventBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(getActivity(),R.id.nav_host_fragmnet).navigate(R.id.action_eventListFragment_to_add_Event);
-            }
-        });
 
         addeventCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,20 +119,6 @@ private CardView addeventCard;
 
 
 
-                eventRV.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                    @Override
-                    public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                        switch (newState) {
-                            case RecyclerView.SCROLL_STATE_IDLE:
-                                addEventBtn.show();
-                                break;
-                            default:
-                                addEventBtn.hide();
-                                break;
-                        }
-                        super.onScrollStateChanged(recyclerView, newState);
-                    }
-                });
             }
         });
     }

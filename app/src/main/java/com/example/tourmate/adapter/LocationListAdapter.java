@@ -5,6 +5,7 @@ import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.example.tourmate.R;
 
 import com.example.tourmate.nearby.Result;
 import com.google.android.gms.location.places.GeoDataClient;
+import com.squareup.picasso.Picasso;
 
 
 import java.io.IOException;
@@ -26,6 +28,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 
 public class LocationListAdapter extends RecyclerView.Adapter<LocationListAdapter.LocationListViewHolder> {
@@ -53,8 +56,7 @@ public class LocationListAdapter extends RecyclerView.Adapter<LocationListAdapte
 
     @Override
     public void onBindViewHolder(@NonNull final LocationListViewHolder holder, int position) {
-
-        //Log.i(TAG, "onBindViewHolder: "+"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference="+results.get(position).getPhotos().get(0).getPhotoReference());
+//        Log.i(TAG, "onBindViewHolder: "+"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference="+results.get(position).getPhotos().get(0).getPhotoReference());
         holder.locationNameTV.setText(results.get(position).getName());
         holder.locationRatingTV.setRating((results.get(position).getRating()));
 
@@ -70,6 +72,8 @@ public class LocationListAdapter extends RecyclerView.Adapter<LocationListAdapte
         String address = addressList.get(0).getAddressLine(0);
         holder.locationAddressTV.setText(address);
 
+      //  Picasso.get().load("https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference="+results.get(position).getPhotos().get(0).getPhotoReference()+"&key=AIzaSyB3uqkrr5DuRs4_ll4wZdTjV3alhyKSPsM")
+               // .into(holder.locationImage);
 
     }
 

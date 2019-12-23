@@ -7,25 +7,36 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/addmoreBudgetET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter Amount" />
+    </com.google.android.material.textfield.TextInputLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        android:layout_marginBottom="10dp"
+        >
         <Button
+            android:background="@drawable/buttonshapegreen"
             android:id="@+id/addMorebudgetBtn"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Add" />
-          <Button
+        <Button
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/buttonshapegreen"
             android:id="@+id/cancelBtn"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cancel" />
-
-    </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
 
 </LinearLayout>

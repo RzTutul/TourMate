@@ -60,16 +60,5 @@
         android:layout_height="match_parent"
         />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
 
-
-       android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="30dp"
-        android:id="@+id/addEventBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:backgroundTint="#294A8D"
-        android:src="@android:drawable/ic_input_add" />
 </RelativeLayout>

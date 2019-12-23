@@ -3,9 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="176dp"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="#043D66"
+    android:background="@drawable/headerbg"
     android:gravity="bottom"
     android:orientation="vertical"
+
     android:padding="16dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
@@ -24,7 +25,6 @@
         tools:text="name"
         android:textColor="#fff"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
     <TextView
         android:textColor="#fff"
         android:fontFamily="@font/fontlight"

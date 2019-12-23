@@ -81,6 +81,7 @@ public class NearByFragment extends Fragment implements OnMapReadyCallback {
     private Spinner placeTypeSp,distanceSP;
     private BottomSheetBehavior mBottomSheetBehavior;
     private RecyclerView locationListRV;
+    private ImageView clopseBtn;
 
     public NearByFragment() {
         // Required empty public constructor
@@ -90,7 +91,6 @@ public class NearByFragment extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         isLocationPermissionGranted();
-
         locationViewModel =
                 ViewModelProviders.of(getActivity())
                         .get(LocationViewModel.class);
@@ -112,10 +112,12 @@ nearByViewModel = ViewModelProviders.of(getActivity()).get(NearByViewModel.class
         locationListRV = view.findViewById(R.id.map_locationRV);
         connectionStatusTV = view.findViewById(R.id.connectionStatus);
 
+
+
         if (EventListFragment.InternetConnection.checkConnection(getActivity())) {
             connectionStatusTV.setVisibility(View.GONE);
-
-        } else {
+        }
+        else {
             Toast.makeText(getActivity(), "No Connetion", Toast.LENGTH_SHORT).show();
             connectionStatusTV.setVisibility(View.VISIBLE);
 
@@ -140,7 +142,6 @@ nearByViewModel = ViewModelProviders.of(getActivity()).get(NearByViewModel.class
             @Override
             public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
                 locationViewModel.getDeviceCurrentLocation();
-                Toast.makeText(getActivity(), "on", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -170,26 +171,7 @@ nearByViewModel = ViewModelProviders.of(getActivity()).get(NearByViewModel.class
         View bottomSheet = view.findViewById(R.id.bottom_sheet_map);
         mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
 
-       /* final ImageView buttonExpand = view.findViewById(R.id.button_expand);
 
-        buttonExpand.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if ( mBottomSheetBehavior.getState()==BottomSheetBehavior.STATE_EXPANDED)
-                {
-                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                   // buttonExpand.setImageResource(R.drawable.ic_arrow_upward_black_24dp);
-
-                }
-                else
-                {
-                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                  ///  buttonExpand.setImageResource(R.drawable.ic_arrow_downward_black_24dp);
-                }
-
-
-            }
-        });*/
 
 
 
@@ -225,6 +207,21 @@ nearByViewModel = ViewModelProviders.of(getActivity()).get(NearByViewModel.class
                    // getNearbyResponseData();
                     Toast.makeText(getActivity(), "tourist_attraction", Toast.LENGTH_SHORT).show();
 
+                }   else if (placeTypeName.equals("bus_station"))
+                {
+                    googleMap.clear();
+                    type ="bus_station";
+                   // getNearbyResponseData();
+                    Toast.makeText(getActivity(), "bus station", Toast.LENGTH_SHORT).show();
+
+                }
+                else if (placeTypeName.equals("train_station"))
+                {
+                    googleMap.clear();
+                    type ="train_station";
+                   // getNearbyResponseData();
+                    Toast.makeText(getActivity(), "train station", Toast.LENGTH_SHORT).show();
+
                 }
 
 
@@ -259,7 +256,16 @@ nearByViewModel = ViewModelProviders.of(getActivity()).get(NearByViewModel.class
                 {
                     place_distance = 1500;
 
+                }    else if (distance.equals("2km"))
+                {
+                    place_distance = 2000;
+
+                }    else if (distance.equals("3km"))
+                {
+                    place_distance = 3000;
+
                 }
+
                   else
                 {
 
@@ -348,12 +354,11 @@ nearByViewModel = ViewModelProviders.of(getActivity()).get(NearByViewModel.class
                     LinearLayoutManager llm = new LinearLayoutManager(getActivity());
                     locationListRV.setLayoutManager(llm);
                     locationListRV.setAdapter(locationListAdapter);
+
                 }
 
-                else
-                {
-                    connectionStatusTV.setVisibility(View.VISIBLE);
-                }
+
+
 
 
             }

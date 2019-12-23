@@ -49,7 +49,6 @@ public class MomentViewModel extends ViewModel {
         pd.setMessage("Wait Image Uploading...");
         pd.show();
 
-
         StorageReference rootRef = FirebaseStorage.getInstance().getReference();
         Uri fileUri = Uri.fromFile(file);
         final StorageReference imageRef = rootRef.child("EventImages/" + fileUri.getLastPathSegment());

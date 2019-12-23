@@ -21,14 +21,13 @@
         <item>zoo</item>
     </string-array>
     <string-array name="distance">
-        <item>select distance</item>
+        <item>Select distance</item>
         <item>0.5km</item>
         <item>1km</item>
         <item>1.5km</item>
         <item>2km</item>
         <item>3km</item>
-        <item>4km</item>
-        <item>5km</item>
+
     </string-array>
 
 

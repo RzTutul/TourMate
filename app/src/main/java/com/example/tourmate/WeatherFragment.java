@@ -160,14 +160,8 @@ public class WeatherFragment extends Fragment {
                 initializeForcastWeather(currentlocation);
 
                 break;
-            case
-                R.id.menu_refresh:
-
-                unit = EventUtils.UNIT_CELCIUS;
-                tempUnit = EventUtils.UNIT_CELCIUS_SYMBOL;
-                initializeCurrentWeather(currentlocation);
-                initializeForcastWeather(currentlocation);
-                break;
+          default:
+              break;
         }
 
         return super.onOptionsItemSelected(item);

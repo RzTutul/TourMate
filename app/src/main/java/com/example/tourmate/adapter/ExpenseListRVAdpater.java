@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -103,21 +104,27 @@ public class ExpenseListRVAdpater extends RecyclerView.Adapter<ExpenseListRVAdpa
     private void showExpenseDilog(final String expenseID,final String eventID,final int position) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Add Expense");
+        builder.setTitle("Update Expense");
         View view1 = LayoutInflater.from(context).inflate(R.layout.add_expense_dialog,null);
 
         builder.setView(view1);
         final EditText expenseNameET = view1.findViewById(R.id.expenseNameET);
         final EditText expenseAmoutET = view1.findViewById(R.id.expenseAmountET);
+        Button updatebtn = view1.findViewById(R.id.addbtn);
+        Button cancelbtn = view1.findViewById(R.id.cancelBtn);
 
+        updatebtn.setText("Update");
         expenseNameET.setText(expensePojos.get(position).getExpenseName());
         expenseAmoutET.setText(String.valueOf(expensePojos.get(position).getAmount()));
 
 
+        final AlertDialog dialog = builder.create();
 
-        builder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
+        dialog.show();
+
+        updatebtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(View v) {
                 String ename = expenseNameET.getText().toString();
                 String amount = expenseAmoutET.getText().toString();
 
@@ -126,14 +133,15 @@ public class ExpenseListRVAdpater extends RecyclerView.Adapter<ExpenseListRVAdpa
                 expenseViewModel.updateExpense(expensePojo);
 
                 Toast.makeText(context,"Updated", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
             }
         });
-
-        builder.setNegativeButton("Canel",null);
-
-        AlertDialog dialog = builder.create();
-
-        dialog.show();
+        cancelbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
 
 
 
