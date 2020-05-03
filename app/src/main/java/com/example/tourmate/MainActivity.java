@@ -104,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 switch (tabpost) {
                     case 0:
+
                         Navigation.findNavController(MainActivity.this, R.id.nav_host_fragmnet).navigate(R.id.eventListFragment);
                         break;
 
@@ -163,6 +164,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 switch (destination.getId()) {
                     case R.id.eventListFragment:
                         isExit = true;
+                        tabLayout.getTabAt(0);
                         bottomNav.setVisibility(View.GONE);
                         new Handler(Looper.getMainLooper()).post(new Runnable() {
                             @Override
@@ -180,7 +182,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         break;
 
                     case R.id.add_Event:
+                        tabLayout.getTabAt(1).select();
                         tabLayout.setVisibility(View.VISIBLE);
+
                         isExit = false;
                         isBack = true;
                         break;

@@ -1,6 +1,7 @@
 package com.example.tourmate.repos;
 
 import android.location.Location;
+import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -12,6 +13,8 @@ import com.example.tourmate.serviceapi.WeatherServiceApi;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 
 public class WeatherRepository {
@@ -36,12 +39,16 @@ public class WeatherRepository {
                     public void onResponse(Call<CurrentWeatherResponseBody> call, Response<CurrentWeatherResponseBody> response) {
                         if (response.isSuccessful()){
                             CurrentWeatherResponseBody responseBody = response.body();
+
+
+                            Log.i(TAG, "onResponse: "+responseBody.getMain().getTemp());
                             currentResponseLD.postValue(responseBody);
                         }
                     }
 
                     @Override
                     public void onFailure(Call<CurrentWeatherResponseBody> call, Throwable t) {
+                        Log.i(TAG, "onResponseFail: "+t.getLocalizedMessage());
 
                     }
                 });

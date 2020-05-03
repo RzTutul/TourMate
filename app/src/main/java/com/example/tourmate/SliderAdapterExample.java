@@ -13,9 +13,14 @@ import com.squareup.picasso.Picasso;
 public class SliderAdapterExample extends SliderViewAdapter<SliderAdapterExample.SliderAdapterVH> {
 
     private Context context;
+    private int[] images;
+    private String[] placeName;
 
-    public SliderAdapterExample(Context context) {
+
+    public SliderAdapterExample(Context context,int[] images,String[] placeName) {
         this.context = context;
+        this.images = images;
+        this.placeName = placeName;
     }
 
     @Override
@@ -28,35 +33,22 @@ public class SliderAdapterExample extends SliderViewAdapter<SliderAdapterExample
     public void onBindViewHolder(SliderAdapterVH viewHolder, int position) {
 //        viewHolder.textViewDescription.setText("This is slider item " + position);
 
-        switch (position) {
-            case 0:
-                Picasso.get().load("https://images.pexels.com/photos/218983/pexels-photo-218983.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")
-                        .into(viewHolder.imageViewBackground);
-                break;
-            case 1:
-                Picasso.get()
-                        .load("https://images.pexels.com/photos/747964/pexels-photo-747964.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260")
-                        .into(viewHolder.imageViewBackground);
-                break;
-            case 2:
-                Picasso.get()
-                        .load("https://images.pexels.com/photos/929778/pexels-photo-929778.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")
-                        .into(viewHolder.imageViewBackground);
-                break;
-            default:
-                Picasso.get()
-                        .load("https://images.pexels.com/photos/218983/pexels-photo-218983.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")
-                        .into(viewHolder.imageViewBackground);
-                break;
 
-        }
+                Picasso.get().load(images[position])
+                        .into(viewHolder.imageViewBackground);
+
+                viewHolder.textViewDescription.setText(placeName[position]);
+
+
+
+
 
     }
 
     @Override
     public int getCount() {
         //slider view count could be dynamic size
-        return 4;
+        return images.length;
     }
 
     class SliderAdapterVH extends SliderViewAdapter.ViewHolder {
@@ -68,6 +60,7 @@ public class SliderAdapterExample extends SliderViewAdapter<SliderAdapterExample
         public SliderAdapterVH(View itemView) {
             super(itemView);
             imageViewBackground = itemView.findViewById(R.id.placeImage);
+            textViewDescription = itemView.findViewById(R.id.placetitle);
             this.itemView = itemView;
         }
     }

@@ -11,21 +11,15 @@
         />
 
     <TextView
+        android:id="@+id/placetitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/nikoshlight"
+        android:textColor="@android:color/holo_orange_light"
         android:text="Title"
         android:gravity="center"
         android:textSize="20sp"
         />
-
-      <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Decription"
-        android:gravity="center"
-        />
-
-
 
 
 </LinearLayout>

@@ -35,6 +35,7 @@ import com.example.tourmate.pojos.EventExpensePojo;
 import com.example.tourmate.pojos.TourMateEventPojo;
 import com.example.tourmate.viewmodels.EventViewModel;
 import com.example.tourmate.viewmodels.ExpenseViewModel;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 

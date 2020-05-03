@@ -9,6 +9,10 @@
     <string name="forcastwether_api_key">31b114dfbba8a5d3500917b2515db196</string>
     <string name="nearby_place_api_key">AIzaSyB3uqkrr5DuRs4_ll4wZdTjV3alhyKSPsM</string>
     <string name="title_activity_maps">Map</string>
+    <string name="hell"></string>
+    <string name="sundorbons">Sundarbans is the largest mangrove forest on earth and a UNESCO world heritage site. Sundarbans is located in between two neighboring countries – Bangladesh and India. Majority of the forest is located in Bangladesh. It is home of the last remaining Bengal tigers in the world and much other wildlife. The environment of Sundarbans is tranquilizing and visiting this forest could be a once in a lifetime experience. That is why Sundarbans comes as number one on our list of the best places to visit in Bangladesh</string>
+    <string name="Rangamati">Rangamti is a district of Chittagong Hill-Tracts area. The main reason to visit this place is the Kaptai Lake. It is a naturally beautiful man-made lake surrounded by beautiful hills. The best thing to do at Rangamati is enjoying a boat ride on the Kaptai Lake for the whole day. Rangamati is also home of many tribal groups. You can visit their handicraft market here to buy some fine quality handmade fabrics. There is a Buddhist monastery called Rajban Bihara which is also worth visiting. Rangamati comes as number four on our list of the best places to visit in Bangladesh</string>
+    <string name="coxbazar">Spilling out into the Bay of Bengal is Cox’s Bazar, an area covered in salty fishing skiffs and bustling jetties. This little town in the far south-east of Bangladesh is known for its stunning beach which stretches for an amazing 120 kilometers from north to south along the side of the balmy Indian Ocean. This is the third longest beach on the planet and you will find local fishermen reeling in the day’s catch as well as bubbling rock pools and crashing turquoise waves that make this a great spot for surfing.</string>
 
 
     <string-array name="place_type">

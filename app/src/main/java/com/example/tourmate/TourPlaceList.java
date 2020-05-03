@@ -23,7 +23,8 @@ import com.smarteist.autoimageslider.SliderView;
  * A simple {@link Fragment} subclass.
  */
 public class TourPlaceList extends Fragment{
-
+    int[] images={R.drawable.sundorbons,R.drawable.rangamati,R.drawable.coxbazar,R.drawable.sitakundu,R.drawable.shylet};
+    String[] placeName ={"SundorBons","Rangamati","Cox's Bazar","SitaKundu","Shylet"};
     public TourPlaceList() {
         // Required empty public constructor
     }
@@ -46,7 +47,8 @@ public class TourPlaceList extends Fragment{
 
         SliderView sliderView = view.findViewById(R.id.imageSlider);
 
-        SliderAdapterExample adapter = new SliderAdapterExample(getContext());
+
+        SliderAdapterExample adapter = new SliderAdapterExample(getContext(),images,placeName);
         sliderView.setSliderAdapter(adapter);
 
 
@@ -55,7 +57,7 @@ public class TourPlaceList extends Fragment{
         sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
         sliderView.setIndicatorSelectedColor(Color.WHITE);
         sliderView.setIndicatorUnselectedColor(Color.GRAY);
-        sliderView.setScrollTimeInSec(4); //set scroll delay in seconds :
+        sliderView.setScrollTimeInSec(3); //set scroll delay in seconds :
         sliderView.startAutoCycle();
     }
 }
