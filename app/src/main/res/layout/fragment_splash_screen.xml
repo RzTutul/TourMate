@@ -1,12 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splashscreen"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     tools:context=".SplashScreen">
 
-    <!-- TODO: Update blank fragment layout -->
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_centerInParent="true"
+        android:id="@+id/lottieAnimationView"
+        android:layout_width="match_parent"
+        android:layout_height="402dp"
+        app:lottie_autoPlay="true"
+        app:lottie_speed="1.5"
+        app:lottie_fileName="welcome.json"
+        app:lottie_loop="true"
+        />
+    <TextView
+        android:layout_marginTop="6dp"
+        android:layout_below="@id/lottieAnimationView"
+        android:textSize="20sp"
+        android:textColor="#000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TourMate"
+        android:gravity="center"
+        android:fontFamily="sans-serif-smallcaps"
+        />
 
-
-</FrameLayout>
+</RelativeLayout>

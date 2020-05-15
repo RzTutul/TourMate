@@ -35,9 +35,15 @@ import com.example.tourmate.pojos.EventExpensePojo;
 import com.example.tourmate.pojos.TourMateEventPojo;
 import com.example.tourmate.viewmodels.EventViewModel;
 import com.example.tourmate.viewmodels.ExpenseViewModel;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
 import java.util.List;
 
@@ -52,16 +58,14 @@ public class MainDashBoard extends Fragment {
     private EventViewModel eventViewModel;
     private ExpenseViewModel expenseViewModel;
     private int totalBudget = 0;
+    private CircularProgressBar budgetProgressbar,balanceProgressbar,expenseProgressbar;
 
-    private ProgressBar progressBar, budgetProgressbar, balanceProgressbar;
 
     private RecyclerView expenseRV;
     private ExpenseListRVAdpater expenseAdapter;
     private CardView addExpenseCard;
-    private int pStatus = 0;
-    private Handler handler = new Handler();
-    private LinearLayout addmoreBudgetLL;
 
+    private LinearLayout addmoreBudgetLL;
 
     public MainDashBoard() {
         // Required empty public constructor
@@ -98,14 +102,13 @@ public class MainDashBoard extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
         eventViewModel = ViewModelProviders.of(getActivity()).get(EventViewModel.class);
         expenseViewModel = ViewModelProviders.of(getActivity()).get(ExpenseViewModel.class);
 
         Bundle bundle = getArguments();
         if (bundle != null) {
             eventID = bundle.getString("id");
+
             eventViewModel.getEventDetails(eventID);
             expenseViewModel.getAllExpense(eventID);
 
@@ -127,8 +130,8 @@ public class MainDashBoard extends Fragment {
 
         addExpenseBtn = view.findViewById(R.id.addExpenseBtn);
 
-        progressBar = view.findViewById(R.id.expenseprogressBar);
-        addExpenseCard = view.findViewById(R.id.addEventCardView);
+        expenseProgressbar = view.findViewById(R.id.expenseprogressBar);
+        addExpenseCard = view.findViewById(R.id.addExpenseCardView);
 
         addExpenseCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,7 +159,9 @@ public class MainDashBoard extends Fragment {
             }
         });
 
-        eventViewModel.eventDetailsLD.observe(this, new Observer<TourMateEventPojo>() {
+
+
+        eventViewModel.eventDetailsLD.observe(getActivity(), new Observer<TourMateEventPojo>() {
             @Override
             public void onChanged(TourMateEventPojo eventPojo) {
 
@@ -173,10 +178,9 @@ public class MainDashBoard extends Fragment {
             }
         });
 
-        expenseViewModel.expenseListLD.observe(this, new Observer<List<EventExpensePojo>>() {
+        expenseViewModel.expenseListLD.observe(getActivity(), new Observer<List<EventExpensePojo>>() {
             @Override
             public void onChanged(List<EventExpensePojo> eventExpensePojos) {
-
                 int totalEx = 0;
                 int remaining = 0;
 
@@ -193,12 +197,16 @@ public class MainDashBoard extends Fragment {
 
                 double percentage = (((double) totalEx / (double) totalBudget) * 100.0);
 
-                final int parcent = (int) percentage;
-                progressBar.setProgress(parcent);
-                pStatus = 0;
+                final double remainingParcent = percentage-100.0;
+                expenseProgressbar.setProgressWithAnimation((float) percentage, (long) 1000);
+                //expenseProgressbar.setProgress(parcent);
+                balanceProgressbar.setProgressWithAnimation((float) remainingParcent, (long) 1000);
+                //balanceProgressbar.setProgress(remainingParcent);
+
+                budgetProgressbar.setProgressWithAnimation(100, (long) 1000);
+
 
                 if (size > 0) {
-
 
                     expenseAdapter = new ExpenseListRVAdpater(getActivity(), eventExpensePojos);
                     LinearLayoutManager llm = new LinearLayoutManager(getActivity());
@@ -212,28 +220,6 @@ public class MainDashBoard extends Fragment {
                     expenseRV.setVisibility(View.GONE);
 
                 }
-
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        while (pStatus <= 100) {
-                            handler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    budgetProgressbar.setProgress(pStatus);
-                                    balanceProgressbar.setProgress(pStatus);
-
-                                }
-                            });
-                            try {
-                                Thread.sleep(5);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                            pStatus++;
-                        }
-                    }
-                }).start();
 
 
                 expenseRV.addOnScrollListener(new RecyclerView.OnScrollListener() {

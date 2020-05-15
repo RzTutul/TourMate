@@ -24,7 +24,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:fontFamily="@font/nikoshlight"
+                android:fontFamily="sans-serif-smallcaps"
                 android:id="@+id/row_eventName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

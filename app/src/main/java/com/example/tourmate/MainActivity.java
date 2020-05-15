@@ -29,6 +29,7 @@ import android.text.Spanned;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.example.tourmate.pojos.UserInformationPojo;
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 
@@ -95,29 +96,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         final TabLayout tabLayout = findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Event List").setIcon(R.drawable.ic_event_note_black_24dp));
         tabLayout.addTab(tabLayout.newTab().setText("New Event").setIcon(R.drawable.ic_add_circle_black_24dp));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        tabLayout.setSelected(true);
 
-        tabLayout.setOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
+
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                int tabpost = tab.getPosition();
-
-                switch (tabpost) {
-                    case 0:
-
-                        Navigation.findNavController(MainActivity.this, R.id.nav_host_fragmnet).navigate(R.id.eventListFragment);
-                        break;
-
-                    case 1:
-                        Navigation.findNavController(MainActivity.this, R.id.nav_host_fragmnet).navigate(R.id.add_Event);
-                        break;
-
-                    default:
-                        break;
-
+                int index = tab.getPosition();
+                if (index==0)
+                {
+                    Navigation.findNavController(MainActivity.this,R.id.nav_host_fragmnet).navigate(R.id.eventListFragment);
                 }
+                else if (index == 1) {
 
-                //viewPager.setCurrentItem(tab.getPosition());
+
+                    Navigation.findNavController(MainActivity.this, R.id.nav_host_fragmnet).navigate(R.id.addEventFrag);
+                }
             }
 
             @Override
@@ -130,6 +125,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             }
         });
+
+
+
 
 
         loginViewModel.stateLiveData.observe(this, new Observer<LoginViewModel.AuthenticationState>() {
@@ -171,20 +169,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             public void run() {
                                 tabLayout.setVisibility(View.VISIBLE);
                                 tabLayout.getTabAt(0).select();
+                                toolbar.setVisibility(View.VISIBLE);
+
                             }
                         });
                         break;
 
                     case R.id.loginFragment:
                         isExit = true;
+                        toolbar.setVisibility(View.GONE);
                         bottomNav.setVisibility(View.GONE);
                         tabLayout.setVisibility(View.GONE);
                         break;
 
-                    case R.id.add_Event:
+                    case R.id.addEventFrag:
                         tabLayout.getTabAt(1).select();
                         tabLayout.setVisibility(View.VISIBLE);
-
                         isExit = false;
                         isBack = true;
                         break;

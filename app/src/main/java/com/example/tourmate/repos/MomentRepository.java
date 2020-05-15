@@ -41,7 +41,7 @@ public class MomentRepository {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         rootRef = FirebaseDatabase.getInstance().getReference();
         userRef = rootRef.child(firebaseUser.getUid());
-        momentsRef = userRef.child("Moments");
+        momentsRef = userRef.child("moments");
 
     }
 

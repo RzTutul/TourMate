@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.tourmate.pojos.UserInformationPojo;
 import com.example.tourmate.viewmodels.LoginViewModel;
@@ -113,7 +114,7 @@ public class RegistrationFragment extends Fragment {
             }
         });
 
-        loginViewModel.stateLiveData.observe(this, new Observer<LoginViewModel.AuthenticationState>() {
+        loginViewModel.stateLiveData.observe(getActivity(), new Observer<LoginViewModel.AuthenticationState>() {
             @Override
             public void onChanged(LoginViewModel.AuthenticationState authenticationState) {
                 switch (authenticationState)

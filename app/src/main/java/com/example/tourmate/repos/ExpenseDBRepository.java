@@ -29,7 +29,7 @@ public class ExpenseDBRepository {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         rootRef = FirebaseDatabase.getInstance().getReference();
         userRef =rootRef.child(firebaseUser.getUid());
-        expenseRef = userRef.child("Expenses");
+        expenseRef = userRef.child("expense");
         expenseRef.keepSynced(true);
 
     }

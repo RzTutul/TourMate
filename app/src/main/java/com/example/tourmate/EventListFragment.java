@@ -29,6 +29,11 @@ import android.widget.Toast;
 import com.example.tourmate.adapter.EventListRVAdapter;
 import com.example.tourmate.pojos.TourMateEventPojo;
 import com.example.tourmate.viewmodels.EventViewModel;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
@@ -46,6 +51,9 @@ private EventListRVAdapter eventListRVAdapter;
 private RecyclerView eventRV;
 private ProgressBar eventProgressBar;
 private CardView addeventCard;
+
+    private AdView mAdView;
+
     public EventListFragment() {
         // Required empty public constructor
     }
@@ -68,6 +76,7 @@ private CardView addeventCard;
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_event_list, container, false);
+
     }
 
     @Override
@@ -87,17 +96,27 @@ private CardView addeventCard;
 
         }
 
+        MobileAds.initialize(getActivity(), new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        mAdView = view.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+
 
         addeventCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(getActivity(),R.id.nav_host_fragmnet).navigate(R.id.action_eventListFragment_to_add_Event);
+                Navigation.findNavController(getActivity(),R.id.nav_host_fragmnet).navigate(R.id.addEventFrag);
 
             }
         });
 
 
-        eventViewModel.eventListLD.observe(this, new Observer<List<TourMateEventPojo>>() {
+        eventViewModel.eventListLD.observe(getActivity(), new Observer<List<TourMateEventPojo>>() {
             @Override
             public void onChanged(List<TourMateEventPojo> tourMateEventPojos) {
 

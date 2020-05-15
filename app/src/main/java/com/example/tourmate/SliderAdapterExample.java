@@ -34,8 +34,8 @@ public class SliderAdapterExample extends SliderViewAdapter<SliderAdapterExample
 //        viewHolder.textViewDescription.setText("This is slider item " + position);
 
 
-                Picasso.get().load(images[position])
-                        .into(viewHolder.imageViewBackground);
+                //Picasso.get().load(images[position]).into(viewHolder.imageViewBackground);
+        viewHolder.imageViewBackground.setBackgroundResource(images[position]);
 
                 viewHolder.textViewDescription.setText(placeName[position]);
 

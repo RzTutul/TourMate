@@ -34,7 +34,7 @@ public class EventDBRepository {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         rootRef = FirebaseDatabase.getInstance().getReference();
         userRef = rootRef.child(firebaseUser.getUid());
-        eventRef = userRef.child("MyEvents");
+        eventRef = userRef.child("events");
         eventRef.keepSynced(true);
 
 
@@ -43,6 +43,7 @@ public class EventDBRepository {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<TourMateEventPojo> events = new ArrayList<>();
                 for (DataSnapshot d : dataSnapshot.getChildren()){
+
                     events.add(d.getValue(TourMateEventPojo.class));
                 }
                 eventListLD.postValue(events);

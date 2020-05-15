@@ -15,6 +15,7 @@
             app:destination="@id/momentGallary"
             app:popUpToInclusive="false" />
     </fragment>
+
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.tourmate.LoginFragment"
@@ -33,39 +34,12 @@
             android:id="@+id/action_loginFragment_to_registrationFragment"
             app:destination="@id/registrationFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/add_Event"
-        android:name="com.example.tourmate.Add_EventFragment"
-        android:label="fragment_add__event"
-        tools:layout="@layout/fragment_add__event" >
-        <action
-            android:id="@+id/action_add_Event_to_eventListFragment"
-            app:destination="@id/eventListFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@+id/add_Event"
-            app:popUpToInclusive="true" />
-    </fragment>
+
     <fragment
         android:id="@+id/eventListFragment"
         android:name="com.example.tourmate.EventListFragment"
         android:label="fragment_event_list"
         tools:layout="@layout/fragment_event_list" >
-        <action
-            android:id="@+id/action_eventListFragment_to_mainDashBoard"
-            app:destination="@id/mainDashBoard"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-        <action
-            android:id="@+id/action_eventListFragment_to_compassFragment"
-            app:destination="@id/compassFragment" />
-        <action
-            android:id="@+id/action_eventListFragment_to_add_Event"
-            app:destination="@id/add_Event" />
     </fragment>
     <fragment
         android:id="@+id/momentGallary"
@@ -110,5 +84,10 @@
         android:name="com.example.tourmate.TourPlaceList"
         android:label="fragment_tour_place_list"
         tools:layout="@layout/fragment_tour_place_list" />
+    <fragment
+        android:id="@+id/addEventFrag"
+        android:name="com.example.tourmate.AddEventFrag"
+        android:label="fragment_add_event"
+        tools:layout="@layout/fragment_add_event" />
 
 </navigation>

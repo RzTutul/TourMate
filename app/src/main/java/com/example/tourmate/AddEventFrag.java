@@ -12,12 +12,11 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.Toast;
 
 import com.example.tourmate.helper.EventUtils;
 import com.example.tourmate.pojos.TourMateEventPojo;
@@ -26,65 +25,83 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Objects;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Add_EventFragment extends Fragment {
+public class AddEventFrag extends Fragment {
 
-    private Button createEvnBtn,updateEventBtn;
-    private TextInputEditText eventNameET,startLocationET,departureDateET,destinationET,budgetET;
+    private Button createEvnBtn, updateEventBtn;
+    private TextInputEditText eventNameET, startLocationET, departureDateET, destinationET, budgetET;
     private String departureDate = "";
     private EventViewModel eventViewModel;
-    private String eventID;
+    public static String eventID =" " ;
+    private String updateEventID ;
 
 
-    public Add_EventFragment() {
+
+    public AddEventFrag() {
         // Required empty public constructor
     }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ///Move layouts up when soft keyboard is shown
-        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
+
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+
 
         eventViewModel = ViewModelProviders.of(this).get(EventViewModel.class);
 
-        Bundle bundle = getArguments();
-        if (bundle != null)
-        {
-            eventID = bundle.getString("id");
+            if (eventID.isEmpty()) {
 
-            eventViewModel.getEventDetails(eventID);
+            }
+            else
+            {
+                eventViewModel.getEventDetails(eventID);
+                eventViewModel.eventDetailsLD.observe(getActivity(), new Observer<TourMateEventPojo>() {
+                    @Override
+                    public void onChanged(TourMateEventPojo eventPojo) {
 
-            eventViewModel.eventDetailsLD.observe(this, new Observer<TourMateEventPojo>() {
-                @Override
-                public void onChanged(TourMateEventPojo eventPojo) {
+                        try {
+                            eventNameET.setText(eventPojo.getEventName());
+                            startLocationET.setText(eventPojo.getDeparture());
+                            destinationET.setText(eventPojo.getDestination());
+                            departureDateET.setText(eventPojo.getDepartureDate());
+                            budgetET.setText(String.valueOf(eventPojo.getInitialBudget()));
+                            createEvnBtn.setVisibility(View.GONE);
+                            updateEventBtn.setVisibility(View.VISIBLE);
 
-                    eventNameET.setText(eventPojo.getEventName());
-                    startLocationET.setText(eventPojo.getDeparture());
-                    destinationET.setText(eventPojo.getDestination());
-                    departureDateET.setText(eventPojo.getDepartureDate());
+                            departureDate = eventPojo.getDepartureDate();
 
-                    budgetET.setText(String.valueOf(eventPojo.getInitialBudget()));
-                    createEvnBtn.setVisibility(View.GONE);
-                    updateEventBtn.setVisibility(View.VISIBLE);
 
-                    departureDate = eventPojo.getDepartureDate();
+                            updateEventID = eventID;
+                            eventID = "";
 
-                }
-            });
+                        }
+                        catch (Exception e)
+                        {
 
-        }
+                        }
+
+                    }
+                });
+            }
+
+
+
+
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add__event, container, false);
+        return inflater.inflate(R.layout.fragment_add_event, container, false);
     }
 
     @Override
@@ -108,41 +125,28 @@ public class Add_EventFragment extends Fragment {
                 String destination = destinationET.getText().toString();
                 String budget = budgetET.getText().toString();
 
-                if (eventName.isEmpty())
-                {
+                if (eventName.isEmpty()) {
                     eventNameET.setError("Provide event name!");
-                }
-                 else if (startLocation.isEmpty())
-                {
+                } else if (startLocation.isEmpty()) {
                     startLocationET.setError("Provide start location!");
-                }
-                 else if (destination.isEmpty())
-                {
+                } else if (destination.isEmpty()) {
                     destinationET.setError("Provide destination location!");
-                }
-                 else if (budget.isEmpty())
-                {
+                } else if (budget.isEmpty()) {
                     budgetET.setError("Provide budget amount!");
-                }
-                 else if (departureDate.isEmpty())
-                {
+                } else if (departureDate.isEmpty()) {
                     departureDateET.setError("Select Date!");
-                }
-
-                 else
-                {
-                    TourMateEventPojo tourMateEventPojo = new TourMateEventPojo(null,eventName,startLocation,destination,Integer.parseInt(budget),departureDate, EventUtils.getDateWithTime());
+                } else {
+                    TourMateEventPojo tourMateEventPojo = new TourMateEventPojo(null, eventName, startLocation, destination, Integer.parseInt(budget), departureDate, EventUtils.getDateWithTime());
                     eventViewModel.SaveEvent(tourMateEventPojo);
-                    Navigation.findNavController(view).navigate(R.id.eventListFragment);
+                    Navigation.findNavController(getActivity(), R.id.nav_host_fragmnet).navigate(R.id.eventListFragment);
 
                 }
-
 
 
             }
         });
 
-  departureDateET.setOnClickListener(new View.OnClickListener() {
+        departureDateET.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -151,23 +155,19 @@ public class Add_EventFragment extends Fragment {
         });
 
 
-
         updateEventBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String eventName = eventNameET.getText().toString();
                 String startLocation = startLocationET.getText().toString();
                 String destination = destinationET.getText().toString();
                 String budget = budgetET.getText().toString();
-                TourMateEventPojo tourMateEventPojo = new TourMateEventPojo(eventID,eventName,startLocation,destination,Integer.parseInt(budget),departureDate, EventUtils.getDateWithTime());
+                TourMateEventPojo tourMateEventPojo = new TourMateEventPojo(updateEventID, eventName, startLocation, destination, Integer.parseInt(budget), departureDate, EventUtils.getDateWithTime());
                 eventViewModel.updateEvent(tourMateEventPojo);
-                Navigation.findNavController(view).navigate(R.id.eventListFragment);
-
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragmnet).navigate(R.id.eventListFragment);
 
             }
         });
-
 
 
     }
@@ -183,6 +183,7 @@ public class Add_EventFragment extends Fragment {
 
 
     }
+
     private DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -195,5 +196,6 @@ public class Add_EventFragment extends Fragment {
 
         }
     };
+
 
 }

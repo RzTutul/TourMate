@@ -7,9 +7,46 @@
     android:orientation="vertical"
     tools:context=".MainDashBoard">
 
+    <androidx.cardview.widget.CardView
+        android:visibility="gone"
+        android:id="@+id/addExpenseCardView"
+        android:layout_margin="6dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        >
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <TextView
+                android:fontFamily="@font/nikoshlight"
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:text="No Expense Found!"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
 
+            <TextView
+                android:fontFamily="@font/fontlight"
+                android:layout_gravity="center"
+                android:textSize="15sp"
+                android:text="Tap + create one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
     <TextView
-        android:fontFamily="@font/fontlight"
+        android:fontFamily="sans-serif-smallcaps"
         android:textColor="#000"
         android:id="@+id/eventNameTV"
         android:layout_width="match_parent"
@@ -36,24 +73,27 @@
                 android:layout_weight="1">
 
                 <RelativeLayout
-
                     android:layout_width="wrap_content"
                     android:layout_height="130dp"
                     android:layout_alignParentLeft="true"
                     >
 
-                    <ProgressBar
+                    <com.mikhaellopez.circularprogressbar.CircularProgressBar
                         android:id="@+id/budgetProgress"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:indeterminate="false"
-                        android:progressDrawable="@drawable/circular"
-                        />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cpb_background_progressbar_color="#3f51b5 "
+                        app:cpb_background_progressbar_width="10dp"
+                        app:cpb_progress_direction="to_right"
+                        app:cpb_progressbar_color="#FFC400"
+                        app:cpb_progressbar_width="10dp"
+                        app:cpb_progress_max ="100"
+                        app:cpb_round_border="true" />
+
 
 
                     <TextView
-                        android:fontFamily="@font/nikoshlight"
+                        android:fontFamily="sans-serif-smallcaps"
                         android:id="@+id/budgetText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -62,11 +102,11 @@
                         android:gravity="center"
                         android:text="Budget"
                         android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textStyle="italic" />
+                        android:textColor="#FFC400"
+                         />
 
                     <TextView
-                        android:fontFamily="@font/fontlight"
+                        android:fontFamily="sans-serif-smallcaps"
                         android:id="@+id/budgetTV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -75,7 +115,8 @@
                         android:layout_marginTop="5dp"
                         android:gravity="center"
                         android:textStyle="bold"
-                        android:text="5454564"
+
+                        android:text="0"
                         android:textColor="@color/colorPrimaryDark"
                         />
 
@@ -95,18 +136,23 @@
                     android:layout_height="130dp"
                     android:layout_centerHorizontal="true">
 
-                    <ProgressBar
+
+
+                    <com.mikhaellopez.circularprogressbar.CircularProgressBar
                         android:id="@+id/expenseprogressBar"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="200dp"
-                        android:layout_height="200dp"
-                        android:indeterminate="false"
-                        android:max="100"
-                        android:progressDrawable="@drawable/circular"
-                        android:secondaryProgress="0" />
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:cpb_background_progressbar_color="#1DE9B6"
+                        app:cpb_background_progressbar_width="10dp"
+                        app:cpb_progress_direction="to_right"
+                        app:cpb_progressbar_color="#3f51b5"
+                        app:cpb_progressbar_width="10dp"
+                        app:cpb_progress_max ="100"
+                        app:cpb_round_border="true" />
+
 
                     <TextView
-                        android:fontFamily="@font/nikoshlight"
+                        android:fontFamily="sans-serif-smallcaps"
                         android:id="@+id/expenseText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -115,12 +161,10 @@
                         android:gravity="center"
                         android:text="Expense"
                         android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:textColor="@color/colorPrimaryDark"
-
-                        android:textStyle="italic" />
+                        android:textColor="#1DE9B6" />
 
                     <TextView
-                        android:fontFamily="@font/fontlight"
+                        android:fontFamily="sans-serif-smallcaps"
                         android:id="@+id/expenseTV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -128,7 +172,7 @@
                         android:layout_centerInParent="true"
                         android:layout_marginTop="5dp"
                         android:gravity="center"
-                        android:text="5454564"
+                        android:text="0"
                         android:textStyle="bold"
                         android:textColor="@color/colorPrimaryDark"
                          />
@@ -148,20 +192,22 @@
                     android:layout_height="130dp"
                     android:layout_alignParentRight="true">
 
-                    <ProgressBar
+
+                    <com.mikhaellopez.circularprogressbar.CircularProgressBar
                         android:id="@+id/balancecircularProgressbar"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="200dp"
-                        android:layout_height="200dp"
-                        android:indeterminate="false"
-                        android:max="100"
-                        android:progress="0"
-                        android:progressDrawable="@drawable/circular"
-                         />
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:cpb_background_progressbar_color="#00B0FF"
+                        app:cpb_background_progressbar_width="10dp"
+                        app:cpb_progress_direction="to_left"
+                        app:cpb_progressbar_color="#FF1744"
+                        app:cpb_progressbar_width="10dp"
+                        app:cpb_progress_max ="100"
+                        app:cpb_round_border="true" />
 
 
                     <TextView
-                        android:fontFamily="@font/nikoshlight"
+                        android:fontFamily="sans-serif-smallcaps"
                         android:id="@+id/remainingText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -170,12 +216,11 @@
                         android:gravity="center"
                         android:text="Balance"
                         android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textStyle="italic" />
+                        android:textColor="@android:color/holo_blue_light"
+                       />
 
                     <TextView
-                        android:fontFamily="@font/fontlight"
-
+                        android:fontFamily="sans-serif-smallcaps"
                         android:id="@+id/remainingTV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -183,7 +228,7 @@
                         android:layout_centerInParent="true"
                         android:layout_marginTop="5dp"
                         android:gravity="center"
-                        android:text="5454564"
+                        android:text="0"
                         android:textStyle="bold"
                         android:textColor="@color/colorPrimaryDark"
 
@@ -199,48 +244,12 @@
     </RelativeLayout>
 
     <View
+        android:layout_marginTop="3dp"
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_below="@+id/progressCard"
-        android:background="@color/colorPrimaryDark" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/addEventCardView"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_centerInParent="true"
-        android:layout_margin="6dp"
-        android:visibility="gone"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="10dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:fontFamily="@font/nikoshlight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="No Expense Found!"
-                android:textSize="20sp" />
-
-            <TextView
-                android:fontFamily="@font/fontlight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Tap+ Add one"
-                android:textSize="15sp" />
-
-
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
+        android:background="@android:color/holo_orange_light" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/expenseRV"
@@ -249,6 +258,9 @@
         android:layout_below="@+id/view"
         android:layout_marginBottom="60dp"
         />
+
+
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addExpenseBtn"

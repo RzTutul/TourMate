@@ -1,5 +1,6 @@
 package com.example.tourmate.adapter;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -19,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.tourmate.AddEventFrag;
 import com.example.tourmate.MainActivity;
 import com.example.tourmate.R;
 import com.example.tourmate.helper.EventUtils;
@@ -37,7 +39,7 @@ public class EventListRVAdapter extends RecyclerView.Adapter<EventListRVAdapter.
     private List<TourMateEventPojo> eventPojos;
     private Context context;
     private EventViewModel eventViewModel = new EventViewModel();
-
+     Bundle bundle;
     public EventListRVAdapter(Context context,List<TourMateEventPojo> eventPojos) {
 
         Collections.reverse(eventPojos);
@@ -92,11 +94,12 @@ public class EventListRVAdapter extends RecyclerView.Adapter<EventListRVAdapter.
             @Override
             public void onClick(View v) {
 
-                String eventID = eventPojos.get(position).getEventID();
+                final String eventID = eventPojos.get(position).getEventID();
                 final TourMateEventPojo eventPojo = eventPojos.get(position);
 
-                final Bundle bundle = new Bundle();
+                 bundle = new Bundle();
                 bundle.putString("id",eventID);
+
 
                 PopupMenu popupMenu = new PopupMenu(context, v);
                 popupMenu.getMenuInflater().inflate(R.menu.row_menu, popupMenu.getMenu());
@@ -111,10 +114,9 @@ public class EventListRVAdapter extends RecyclerView.Adapter<EventListRVAdapter.
                             case R.id.detailMenu:
                                 Navigation.findNavController(holder.itemView).navigate(R.id.mainDashBoard,bundle);
                                 break;
-
                             case R.id.editMenu:
-                                Navigation.findNavController(holder.itemView).navigate(R.id.add_Event,bundle);
-
+                             AddEventFrag.eventID = eventID;
+                                Navigation.findNavController(holder.itemView).navigate(R.id.addEventFrag);
                                 break;
                             case R.id.deleteMenu:
                                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -130,7 +132,6 @@ public class EventListRVAdapter extends RecyclerView.Adapter<EventListRVAdapter.
                                             e.printStackTrace();
                                         }
                                         Navigation.findNavController(holder.itemView).navigate(R.id.eventListFragment
-
                                         );
                                     }
                                 });
