@@ -89,5 +89,15 @@
         android:name="com.example.tourmate.AddEventFrag"
         android:label="fragment_add_event"
         tools:layout="@layout/fragment_add_event" />
+    <fragment
+        android:id="@+id/AddeventDairyFragment"
+        android:name="com.example.tourmate.AddEventDairyFragment"
+        android:label="fragment_event_dairy"
+        tools:layout="@layout/fragment_event_dairy" />
+    <fragment
+        android:id="@+id/eventDairyListFragment"
+        android:name="com.example.tourmate.EventDairyListFragment"
+        android:label="fragment_event_dairy_list"
+        tools:layout="@layout/fragment_event_dairy_list" />
 
 </navigation>

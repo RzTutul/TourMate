@@ -204,6 +204,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         isBack = true;
                         isExit = false;
                         break;
+                    case R.id.eventDairyListFragment:
+                        bottomNav.setVisibility(View.VISIBLE);
+                        tabLayout.setVisibility(View.GONE);
+                        isBack = true;
+                        isExit = false;
+                        break;
 
                     default:
                         bottomNav.setVisibility(View.GONE);
@@ -235,6 +241,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             break;
                         case R.id.bottom_nav_event:
                             Navigation.findNavController(MainActivity.this, R.id.nav_host_fragmnet).navigate(R.id.eventListFragment);
+                            break;
+                        case R.id.bottom_event_dairy:
+                            Navigation.findNavController(MainActivity.this, R.id.nav_host_fragmnet).navigate(R.id.eventDairyListFragment,bundle);
                             break;
 
                         default:

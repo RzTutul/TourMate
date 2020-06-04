@@ -50,6 +50,12 @@ public class EventUtils {
         return dateFormat.format(date);
     }
 
+    public static String getCurrentDateWithDay() {
+        DateFormat dateFormat = new SimpleDateFormat("EEE,dd.MM.yyyy");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+
     public static String getDateWithTime() {
         DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy hh:mm aa");
         Date date = new Date();

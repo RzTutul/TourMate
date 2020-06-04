@@ -48,6 +48,7 @@ public class MomentRVAdapter extends RecyclerView.Adapter<MomentRVAdapter.Moment
     @Override
     public void onBindViewHolder(@NonNull MomentViewHolder holder,final int position) {
         Picasso.get().load(momentPojos.get(position).getDownloadUrl()).fit().into(holder.imageView);
+
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
