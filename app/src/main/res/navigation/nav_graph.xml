@@ -99,5 +99,10 @@
         android:name="com.example.tourmate.EventDairyListFragment"
         android:label="fragment_event_dairy_list"
         tools:layout="@layout/fragment_event_dairy_list" />
+    <fragment
+        android:id="@+id/expensePdfFragment"
+        android:name="com.example.tourmate.ExpensePdfFragment"
+        android:label="fragment_expense_pdf"
+        tools:layout="@layout/fragment_expense_pdf" />
 
 </navigation>

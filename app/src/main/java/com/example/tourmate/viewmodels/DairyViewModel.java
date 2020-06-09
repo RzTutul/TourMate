@@ -32,4 +32,13 @@ public class DairyViewModel extends ViewModel {
 
         dairyDetailsLD = eventDairyRepos.getDairyDetails(eventID,dairyID);
     }
+
+    public void updateDairy(DairyPojo dairyPojo) {
+        eventDairyRepos.updateDairyRepos(dairyPojo);
+    }
+
+    public void deleteDairy(String eventID, String dairyID) {
+
+        eventDairyRepos.deleteDairyRepos(eventID,dairyID);
+    }
 }

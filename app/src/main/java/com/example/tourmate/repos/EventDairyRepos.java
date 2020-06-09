@@ -1,6 +1,7 @@
 package com.example.tourmate.repos;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.tourmate.pojos.DairyPojo;
@@ -30,6 +31,8 @@ public class EventDairyRepos {
         rootRef = FirebaseDatabase.getInstance().getReference();
         userRef = rootRef.child(firebaseUser.getUid());
         dairyRef = userRef.child("EventDairy");
+
+        dairyRef.keepSynced(true);
     }
 
     public void AddDairy(DairyPojo dairyPojo)
@@ -79,5 +82,17 @@ public class EventDairyRepos {
             }
         });
         return dairyDetailsLD;
+    }
+
+    public void updateDairyRepos(DairyPojo dairyPojo) {
+
+        dairyRef.child(dairyPojo.getEventID()).child(dairyPojo.getDairyID()).setValue(dairyPojo);
+
+    }
+
+    public void deleteDairyRepos(String eventID, String dairyID) {
+
+        dairyRef.child(eventID).child(dairyID).removeValue();
+
     }
 }

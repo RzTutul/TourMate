@@ -1,6 +1,8 @@
 package com.example.tourmate;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,17 +12,21 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.tourmate.helper.EventUtils;
 import com.example.tourmate.pojos.DairyPojo;
 import com.example.tourmate.viewmodels.DairyViewModel;
 import com.google.android.material.textfield.TextInputEditText;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 
 /**
@@ -32,11 +38,13 @@ public class AddEventDairyFragment extends Fragment {
     EditText titleET;
     TextInputEditText dairyNoteET;
     Button saveBtn;
+    Button updateBtn;
     String eventID;
     String date;
     String dairyID;
 
     DairyViewModel dairyViewModel;
+
     public AddEventDairyFragment() {
         // Required empty public constructor
     }
@@ -49,17 +57,16 @@ public class AddEventDairyFragment extends Fragment {
 
         Bundle bundle = getArguments();
 
-        if (bundle!=null)
-        {
+        if (bundle != null) {
             eventID = bundle.getString("id");
             dairyID = bundle.getString("dairyID");
-            if (dairyID == null)
-            {
 
-            }
-            else
-            {
-                dairyViewModel.getDairyDetails(eventID,dairyID);
+
+            if (dairyID == null) {
+
+            } else {
+
+                dairyViewModel.getDairyDetails(eventID, dairyID);
 
                 dairyViewModel.dairyDetailsLD.observe(getActivity(), new Observer<DairyPojo>() {
                     @Override
@@ -70,7 +77,6 @@ public class AddEventDairyFragment extends Fragment {
                     }
                 });
             }
-
 
 
         }
@@ -87,10 +93,16 @@ public class AddEventDairyFragment extends Fragment {
         titleET = view.findViewById(R.id.d_titleET);
         dairyNoteET = view.findViewById(R.id.d_noteET);
         saveBtn = view.findViewById(R.id.d_savebtn);
+        updateBtn = view.findViewById(R.id.d_updatebtn);
+
+        date = EventUtils.getCurrentDateWithDay();
+        dateTV.setText(date);
 
 
-         date = EventUtils.getCurrentDateWithDay();
-         dateTV.setText(date);
+        if (dairyID != null) {
+            updateBtn.setVisibility(View.VISIBLE);
+            saveBtn.setVisibility(View.GONE);
+        }
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,27 +112,47 @@ public class AddEventDairyFragment extends Fragment {
                 String note = dairyNoteET.getText().toString();
 
 
-                if (title.equals(""))
-                {
+                if (title.equals("")) {
                     titleET.setError("Give Title");
-                }
-                else if (note.isEmpty())
-                {
+                } else if (note.isEmpty()) {
                     dairyNoteET.setError("Write Something!");
-                }
-
-                else
-                {
-                    DairyPojo dairyPojo = new DairyPojo(eventID,null,date,title,note);
+                } else {
+                    DairyPojo dairyPojo = new DairyPojo(eventID, null, date, title, note);
 
                     dairyViewModel.addDairy(dairyPojo);
                     Bundle bundle = new Bundle();
-                    bundle.putString("id",eventID);
+                    bundle.putString("id", eventID);
 
-                    Navigation.findNavController(getActivity(),R.id.nav_host_fragmnet).navigate(R.id.eventDairyListFragment,bundle);
+                    Navigation.findNavController(getActivity(), R.id.nav_host_fragmnet).navigate(R.id.eventDairyListFragment, bundle);
                 }
             }
         });
+
+        updateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String date = dateTV.getText().toString();
+                String title = titleET.getText().toString();
+                String note = dairyNoteET.getText().toString();
+
+                if (title.equals("")) {
+                    titleET.setError("Give Title");
+                } else if (note.isEmpty()) {
+                    dairyNoteET.setError("Write Something!");
+                } else {
+                    DairyPojo dairyPojo = new DairyPojo(eventID, dairyID, date, title, note);
+
+                    dairyViewModel.updateDairy(dairyPojo);
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("id", eventID);
+
+                    Navigation.findNavController(getActivity(), R.id.nav_host_fragmnet).navigate(R.id.eventDairyListFragment, bundle);
+                }
+            }
+        });
+
+
 
     }
 }

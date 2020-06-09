@@ -6,9 +6,12 @@ import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +31,7 @@ public class ExpenseListRVAdpater extends RecyclerView.Adapter<ExpenseListRVAdpa
     private List<EventExpensePojo> expensePojos;
     private ExpenseViewModel expenseViewModel = new ExpenseViewModel();
     private String expenseID;
-    private String eventID;
+    private String eventID,Catagories;
 
     public ExpenseListRVAdpater(Context context, List<EventExpensePojo> expensePojos) {
         Collections.reverse(expensePojos);
@@ -56,6 +59,7 @@ public class ExpenseListRVAdpater extends RecyclerView.Adapter<ExpenseListRVAdpa
         final EventExpensePojo expensePojo = expensePojos.get(position);
 
         holder.expenseName.setText(expensePojos.get(position).getExpenseName());
+        holder.expenseCatagories.setText(expensePojos.get(position).getE_catagories());
         holder.expenseAmount.setText("৳ "+String.valueOf(expensePojos.get(position).getAmount()));
         holder.expenseDate.setText(expensePojos.get(position).getExpenseDateTime());
 
@@ -63,7 +67,8 @@ public class ExpenseListRVAdpater extends RecyclerView.Adapter<ExpenseListRVAdpa
             @Override
             public void onClick(View v) {
 
-                showExpenseDilog(expenseID,eventID,position);
+                Catagories = expensePojos.get(position).getE_catagories();
+                showExpenseDilog(expenseID,eventID,Catagories,position);
             }
         });
   holder.deletebtn.setOnClickListener(new View.OnClickListener() {
@@ -84,7 +89,7 @@ public class ExpenseListRVAdpater extends RecyclerView.Adapter<ExpenseListRVAdpa
 
     public class ExpenseViewHolder extends RecyclerView.ViewHolder
     {
-        TextView expenseName,expenseAmount,expenseDate;
+        TextView expenseName,expenseAmount,expenseDate,expenseCatagories;
         ImageView editbtn,deletebtn;
 
         public ExpenseViewHolder(@NonNull View itemView) {
@@ -92,16 +97,16 @@ public class ExpenseListRVAdpater extends RecyclerView.Adapter<ExpenseListRVAdpa
 
             expenseName = itemView.findViewById(R.id.row_expenseName);
             expenseAmount = itemView.findViewById(R.id.row_expenseAmount);
+            expenseCatagories = itemView.findViewById(R.id.row_expense_catagories);
             expenseDate = itemView.findViewById(R.id.row_expense_date);
             editbtn = itemView.findViewById(R.id.row_expenseEdit);
             deletebtn = itemView.findViewById(R.id.row_expenseDelete);
-
 
         }
     }
 
 
-    private void showExpenseDilog(final String expenseID,final String eventID,final int position) {
+    private void showExpenseDilog(final String expenseID,final String eventID,final String exCatagories,final int position) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Update Expense");
@@ -110,12 +115,36 @@ public class ExpenseListRVAdpater extends RecyclerView.Adapter<ExpenseListRVAdpa
         builder.setView(view1);
         final EditText expenseNameET = view1.findViewById(R.id.expenseNameET);
         final EditText expenseAmoutET = view1.findViewById(R.id.expenseAmountET);
+        final Spinner expenseCatagoriesSp = view1.findViewById(R.id.expenseCatagories);
+
+
         Button updatebtn = view1.findViewById(R.id.addbtn);
         Button cancelbtn = view1.findViewById(R.id.cancelBtn);
+
+        String catagories [] = {"Food","Transport","Hotel","Other"};
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(context,android.R.layout.simple_spinner_dropdown_item,catagories);
+        expenseCatagoriesSp.setAdapter(arrayAdapter);
+        Toast.makeText(context, ""+exCatagories, Toast.LENGTH_SHORT).show();
+        int spinnerPosition = arrayAdapter.getPosition(exCatagories);
+        expenseCatagoriesSp.setSelection(spinnerPosition);
 
         updatebtn.setText("Update");
         expenseNameET.setText(expensePojos.get(position).getExpenseName());
         expenseAmoutET.setText(String.valueOf(expensePojos.get(position).getAmount()));
+
+        expenseCatagoriesSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                Catagories = parent.getItemAtPosition(position).toString();
+                Toast.makeText(context, ""+Catagories, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
         final AlertDialog dialog = builder.create();
@@ -128,7 +157,7 @@ public class ExpenseListRVAdpater extends RecyclerView.Adapter<ExpenseListRVAdpa
                 String ename = expenseNameET.getText().toString();
                 String amount = expenseAmoutET.getText().toString();
 
-                EventExpensePojo expensePojo = new EventExpensePojo(expenseID,eventID,ename,Integer.parseInt(amount), EventUtils.getDateWithTime());
+                EventExpensePojo expensePojo = new EventExpensePojo(expenseID,eventID,ename,Integer.parseInt(amount),Catagories, EventUtils.getDateWithTime());
 
                 expenseViewModel.updateExpense(expensePojo);
 

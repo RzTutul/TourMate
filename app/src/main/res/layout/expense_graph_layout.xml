@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Expense PieChart"
+        android:fontFamily="sans-serif-smallcaps"
+        android:textSize="20sp"
+        android:layout_gravity="center"
+        android:textColor="#000"
+
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <org.eazegraph.lib.charts.PieChart xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/piechart"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:padding="8dp" />
+
+        <TextView
+            android:id="@+id/budgetTV"
+            android:fontFamily="sans-serif-smallcaps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="23sp"
+            android:textColor="@android:color/darker_gray"
+            android:text="12030" />
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:cardBackgroundColor="#FE6DA8"
+            app:cardCornerRadius="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:gravity="center"
+            android:text="Food" />
+
+        <TextView
+            android:id="@+id/foodamoutTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:gravity="center"
+            android:text="40340"
+            android:textColor="#FE6DA8" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:cardBackgroundColor="#56B7F1"
+            app:cardCornerRadius="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:gravity="center"
+            android:text="Transport" />
+
+        <TextView
+            android:id="@+id/transportamoutTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:gravity="center"
+            android:text="40340"
+            android:textColor="#56B7F1" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:cardBackgroundColor="#CDA67F"
+            app:cardCornerRadius="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:gravity="center"
+            android:text="Hotel" />
+
+        <TextView
+            android:id="@+id/hotelamoutTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:gravity="center"
+            android:text="40340"
+            android:textColor="#CDA67F" />
+
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:cardBackgroundColor="#FED70E"
+            app:cardCornerRadius="20dp" />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:gravity="center"
+            android:text="other" />
+
+        <TextView
+            android:id="@+id/otheramoutTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:gravity="center"
+            android:text="40340"
+            android:textColor="#FED70E" />
+    </LinearLayout>
+
+
+</LinearLayout>

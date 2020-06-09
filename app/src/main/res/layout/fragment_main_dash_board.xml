@@ -62,6 +62,7 @@
         android:layout_below="@id/eventNameTV">
 
         <LinearLayout
+            android:layout_margin="3dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:weightSum="3">
@@ -127,15 +128,16 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/expenseCardLL"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
 
                 <RelativeLayout
+
                     android:layout_width="wrap_content"
                     android:layout_height="130dp"
                     android:layout_centerHorizontal="true">
-
 
 
                     <com.mikhaellopez.circularprogressbar.CircularProgressBar
@@ -197,10 +199,10 @@
                         android:id="@+id/balancecircularProgressbar"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:cpb_background_progressbar_color="#00B0FF"
+                        app:cpb_background_progressbar_color="#FF1744"
                         app:cpb_background_progressbar_width="10dp"
                         app:cpb_progress_direction="to_left"
-                        app:cpb_progressbar_color="#FF1744"
+                        app:cpb_progressbar_color="#00B0FF"
                         app:cpb_progressbar_width="10dp"
                         app:cpb_progress_max ="100"
                         app:cpb_round_border="true" />

@@ -66,5 +66,20 @@
 
         </LinearLayout>
 
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+            <Button
+                android:id="@+id/sharebtn"
+                android:background="#fff"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:drawableStart="@drawable/ic_share_black_24dp"
+                />
+
+        </RelativeLayout>
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>

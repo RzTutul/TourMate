@@ -65,12 +65,20 @@
 
             </LinearLayout>
 
+            <TextView
+                android:layout_marginTop="20dp"
+                android:id="@+id/row_expense_catagories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-smallcaps"
+                android:gravity="center"
 
+                android:textColor="@android:color/holo_blue_dark"
+                android:text="Food" />
             <TextView
                 android:id="@+id/row_expense_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
                 android:fontFamily="@font/thinfont"
                 android:gravity="center"
                 android:text="19.2.19 Sat" />

@@ -7,5 +7,10 @@
         android:title="Add more budget"
         android:icon="@drawable/ic_add_black_24dp"
         />
+   <item
+        android:id="@+id/expenseDetails_menu"
+        android:title="Expense Details"
+        android:icon="@drawable/ic_add_black_24dp"
+        />
 
 </menu>

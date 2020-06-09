@@ -6,17 +6,27 @@ public class EventExpensePojo {
     private String eventId;
     private String expenseName;
     private int amount;
+    private String e_catagories;
     private String expenseDateTime;
 
     public EventExpensePojo() {
     }
 
-    public EventExpensePojo(String expenseId, String eventId, String expenseName, int amount, String expenseDateTime) {
+    public EventExpensePojo(String expenseId, String eventId, String expenseName, int amount, String e_catagories, String expenseDateTime) {
         this.expenseId = expenseId;
         this.eventId = eventId;
         this.expenseName = expenseName;
         this.amount = amount;
+        this.e_catagories = e_catagories;
         this.expenseDateTime = expenseDateTime;
+    }
+
+    public String getE_catagories() {
+        return e_catagories;
+    }
+
+    public void setE_catagories(String e_catagories) {
+        this.e_catagories = e_catagories;
     }
 
     public String getExpenseId() {

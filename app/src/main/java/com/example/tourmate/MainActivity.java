@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static final String TAG = MainActivity.class.getSimpleName();
     private boolean isExit = false;
     private boolean isBack = false;
+    private boolean isDairyFrg = false;
 
     private NavigationView navigationView;
     private DrawerLayout drawer;
@@ -210,6 +211,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         isBack = true;
                         isExit = false;
                         break;
+                    case R.id.AddeventDairyFragment:
+                        isDairyFrg = true;
+                        isBack = false;
+
+                        break;
+
 
                     default:
                         bottomNav.setVisibility(View.GONE);
@@ -277,9 +284,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         });
                 AlertDialog alert = builder.create();
                 alert.show();
-            } else if (isBack) {
+            }
+            else if (isBack) {
                 Navigation.findNavController(MainActivity.this, R.id.nav_host_fragmnet).navigate(R.id.eventListFragment);
-            } else {
+            }
+            else if (isDairyFrg) {
+                final Bundle bundle = new Bundle();
+                bundle.putString("id", eventID);
+                Navigation.findNavController(MainActivity.this, R.id.nav_host_fragmnet).navigate(R.id.eventDairyListFragment,bundle);
+            }
+
+            else {
                 super.onBackPressed();
             }
         }
