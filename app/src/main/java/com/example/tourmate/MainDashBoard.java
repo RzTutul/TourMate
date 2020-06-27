@@ -49,7 +49,6 @@ import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 import org.eazegraph.lib.charts.PieChart;
 import org.eazegraph.lib.models.PieModel;
 
-
 import java.util.List;
 import java.util.Locale;
 

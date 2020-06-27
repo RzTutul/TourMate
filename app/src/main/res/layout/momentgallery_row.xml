@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="250dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="4dp"
-    app:cardElevation="3dp"
+
     android:orientation="vertical">
 
-    <ImageView
+    <soup.neumorphism.NeumorphImageView
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:id="@+id/gallery_row_moment"
         android:scaleType="centerCrop"
         />
 
-</androidx.cardview.widget.CardView>
+</LinearLayout>

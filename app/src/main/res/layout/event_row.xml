@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<soup.neumorphism.NeumorphCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="165dp"
-    android:layout_margin="6dp"
+    android:layout_height="185dp"
     android:orientation="vertical"
-    app:cardCornerRadius="5dp"
-    app:cardElevation="4dp">
+    >
 
 
     <LinearLayout
-        android:background="#303030"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
@@ -30,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Study Tour"
-                android:textColor="#FFFFFF"
+                android:textColor="#917979"
                 android:textSize="22sp" />
 
             <LinearLayout
@@ -54,7 +51,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Dhaka"
-                    android:textColor="#fff" />
+                    android:textColor="#3D1891"
+                    />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -70,7 +68,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="3dp"
                     android:text="Cox Bazar"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#3B1492"
+                    />
 
             </LinearLayout>
 
@@ -88,7 +87,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=" Going Date:"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#3B1492"
+                    />
 
                 <TextView
                     android:fontFamily="@font/fontlight"
@@ -97,10 +97,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="23/32/12"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#3B1492"
+                    />
             </LinearLayout>
 
             <LinearLayout
+
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -116,7 +118,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="  Budget:"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#3B1492"
+                    />
 
                 <TextView
                     android:fontFamily="@font/nikoshlight"
@@ -126,7 +129,7 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:text="1000"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#3B1492"                    />
 
             </LinearLayout>
 
@@ -138,7 +141,8 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:textColor="#FFFFFF"
+                    android:layout_marginLeft="6dp"
+                    android:textColor="#3B1492"
                     android:fontFamily="@font/thinfont"
                     android:id="@+id/row_createEventdate"
                     android:layout_width="wrap_content"
@@ -146,14 +150,14 @@
                     android:text="23/32/19 02:34 PM" />
 
                 <TextView
-                    android:textColor="#FFFFFF"
-                    android:gravity="center"
-                    android:fontFamily="@font/fontlight"
                     android:id="@+id/row_daysLeft"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginLeft="20dp"
-                    android:text="Have a Safe Journey" />
+                    android:fontFamily="@font/fontlight"
+                    android:gravity="center"
+                    android:text="Have a Safe Journey"
+                    android:textColor="#D67285" />
 
             </LinearLayout>
 
@@ -180,4 +184,4 @@
     </LinearLayout>
 
 
-</androidx.cardview.widget.CardView>
+</soup.neumorphism.NeumorphCardView>

@@ -321,7 +321,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             case R.id.nav_nearby:
                 Navigation.findNavController(this, R.id.nav_host_fragmnet)
-                        .navigate(R.id.nearByFragment);
+                        .navigate(R.id.mapDashBoardFragment);
                 break;
             case R.id.nav_compass:
                 Navigation.findNavController(this, R.id.nav_host_fragmnet)

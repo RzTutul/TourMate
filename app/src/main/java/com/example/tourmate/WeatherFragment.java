@@ -9,10 +9,12 @@ import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -20,17 +22,14 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,7 +55,6 @@ import com.squareup.picasso.Picasso;
 import java.io.IOException;
 import java.util.List;
 
-import static androidx.constraintlayout.widget.Constraints.TAG;
 
 
 /**
@@ -85,15 +83,16 @@ public class WeatherFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         locationViewModel =
-                ViewModelProviders.of(getActivity())
+                ViewModelProviders.of(this)
                         .get(LocationViewModel.class);
 
         weatherViewModel =
-                ViewModelProviders.of(getActivity())
+                ViewModelProviders.of(this)
                         .get(WeatherViewModel.class);
 
 
@@ -194,7 +193,6 @@ public class WeatherFragment extends Fragment {
             @Override
             public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
                 locationViewModel.getDeviceCurrentLocation();
-                Toast.makeText(getActivity(), "on", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -244,10 +242,9 @@ public class WeatherFragment extends Fragment {
             }
         });
 
-        locationViewModel.locationLD.observe(this, new Observer<Location>() {
+        locationViewModel.locationLD.observe(getActivity(), new Observer<Location>() {
             @Override
             public void onChanged(Location location) {
-                currentlocation = location;
                 currentlocation = location;
                 initializeCurrentWeather(location);
                 initializeForcastWeather(location);
@@ -319,8 +316,8 @@ public class WeatherFragment extends Fragment {
                 hummidityTV.setText((hudmmidity) + " %");
                 pressureTV.setText((pressure) + " hPa");
                 weatherstatus.setText(weatherStat);
-                sunriseTV.setText(sunrise);
-                sunsetTV.setText(sunset);
+                sunriseTV.setText(sunrise+ " am");
+                sunsetTV.setText(sunset+ " pm");
             }
         });
 
@@ -335,6 +332,7 @@ public class WeatherFragment extends Fragment {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private boolean isLocationPermissionGranted() {
         if (getActivity().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) !=
                 PackageManager.PERMISSION_GRANTED) {
@@ -377,7 +375,6 @@ public class WeatherFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Toast.makeText(getActivity(), "resumed", Toast.LENGTH_SHORT).show();
         locationViewModel.getDeviceCurrentLocation();
     }
 }

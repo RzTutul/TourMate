@@ -99,10 +99,16 @@
         android:name="com.example.tourmate.EventDairyListFragment"
         android:label="fragment_event_dairy_list"
         tools:layout="@layout/fragment_event_dairy_list" />
+
     <fragment
-        android:id="@+id/expensePdfFragment"
-        android:name="com.example.tourmate.ExpensePdfFragment"
-        android:label="fragment_expense_pdf"
-        tools:layout="@layout/fragment_expense_pdf" />
+        android:id="@+id/webViewMapFragment"
+        android:name="com.example.tourmate.WebViewMapFragment"
+        android:label="fragment_web_view_map"
+        tools:layout="@layout/fragment_web_view_map" />
+    <fragment
+        android:id="@+id/mapDashBoardFragment"
+        android:name="com.example.tourmate.MapDashBoardFragment"
+        android:label="fragment_map_dash_board"
+        tools:layout="@layout/fragment_map_dash_board" />
 
 </navigation>

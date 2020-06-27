@@ -34,20 +34,23 @@
         android:textColor="#3071A3"
         android:textSize="35sp" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColorHint="#000">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/inputEmail"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/nikoshlight"
-            android:gravity="center"
-            android:hint="Enter email"
-            android:inputType="textEmailAddress" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:textColorHint="#000">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nikoshlight"
+                android:gravity="center"
+                android:hint="Enter email"
+                android:inputType="textEmailAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"

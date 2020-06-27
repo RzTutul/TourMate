@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<soup.neumorphism.NeumorphCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="110dp"
+    android:layout_height="120dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="6dp"
     app:cardElevation="5dp"
     app:cardCornerRadius="4dp"
+    app:neumorph_backgroundColor="#B4E8F5"
     android:orientation="vertical">
 
 
@@ -23,6 +24,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:gravity="center"
                 android:fontFamily="@font/nikoshlight"
                 android:id="@+id/row_forcast_date"
                 android:layout_width="match_parent"
@@ -68,7 +70,7 @@
                     android:id="@+id/row_forcast_sunrise"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#D5BCBC"
+                    android:background="#D5A1A1"
                     android:gravity="center"
                     android:text="32"
                     android:textColor="#fff"
@@ -109,15 +111,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="21dp"
                     android:fontFamily="@font/nikoshlight"
-                    android:text="Max: "
+                    android:text="Max:        "
                     android:textColor="#000" />
 
                 <TextView
                     android:id="@+id/row_forcast_temp_max"
                     android:layout_width="match_parent"
-
                     android:layout_height="wrap_content"
-                    android:background="#1FC478"
+                    android:background="#F7B3CB"
                     android:gravity="center"
                     android:text="32"
                     android:textColor="#fff"
@@ -135,14 +136,14 @@
                     android:fontFamily="@font/nikoshlight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Min:  " />
+                    android:text="Min:         " />
 
                 <TextView
                     android:id="@+id/row_forcast_min"
                     android:layout_width="match_parent"
 
                     android:layout_height="wrap_content"
-                    android:background="#C4A824"
+                    android:background="#A6BBDD"
                     android:gravity="center"
                     android:text="32"
                     android:textColor="#fff"
@@ -158,4 +159,4 @@
 
     </LinearLayout>
 
-</androidx.cardview.widget.CardView>
+</soup.neumorphism.NeumorphCardView>
